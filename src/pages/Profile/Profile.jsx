@@ -1,31 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Link } from "react-router-dom";
+import Header from "../../components/Header/Header";
+import Products from "../../components/Products/Products";
 import S from "./Profile.module.css";
+import MainMenu from "../../components/MainMenu/MainMenu";
 
 function Profile() {
   return (
     <div className={S.container}>
-      <header className={S.header}>
-        <nav className={S.header__nav}>
-          <button className={S.btn__put} type="button">
-            Разместить объявление
-          </button>
-          <button className={S.btn__personal} type="button">
-            Личный кабинет
-          </button>
-        </nav>
-      </header>
+      <Header />
       <main className={S.main}>
         <div className={S.main__container}>
           <div className={S.main__center}>
-            <div className={S.main__menu}>
-              <Link className={S.menu__logo} to="/" />
-              <form className={S.menu__form} action="#">
-                <button className={S.menu__btn} type="button">
-                  Вернуться на&nbsp;главную
-                </button>
-              </form>
-            </div>
+            <MainMenu />
             <h2 className={S.main__name}>Здравствуйте, Антон!</h2>
             <div className={S.main__profile}>
               <div className={S.profile__content}>
@@ -99,112 +86,7 @@ function Profile() {
             </div>
             <h3 className={S.main__title}>Мои товары</h3>
           </div>
-          <div className={S.main__content}>
-            <div className={S.content__cards}>
-              <div className={S.cards__item}>
-                <div className={S.cards__card}>
-                  <div className={S.card__img}>
-                    <Link to="/profile" />
-                  </div>
-                  <div className={S.card__content}>
-                    <Link to="/profile">
-                      <h3 className={S.card__title}>
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                    </Link>
-                    <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                    <p className={S.card__place}>Санкт Петербург</p>
-                    <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                  </div>
-                </div>
-              </div>
-              <div className={S.cards__item}>
-                <div className={S.cards__card}>
-                  <div className={S.card__img}>
-                    <Link to="/profile" />
-                  </div>
-                  <div className={S.card__content}>
-                    <Link to="/profile">
-                      <h3 className={S.card__title}>
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                    </Link>
-                    <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                    <p className={S.card__place}>Санкт Петербург</p>
-                    <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                  </div>
-                </div>
-              </div>
-              <div className={S.cards__item}>
-                <div className={S.cards__card}>
-                  <div className={S.card__img}>
-                    <Link to="/profile" />
-                  </div>
-                  <div className={S.card__content}>
-                    <Link to="/profile">
-                      <h3 className={S.card__title}>
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                    </Link>
-                    <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                    <p className={S.card__place}>Санкт Петербург</p>
-                    <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                  </div>
-                </div>
-              </div>
-              <div className={S.cards__item}>
-                <div className={S.cards__card}>
-                  <div className={S.card__img}>
-                    <Link to="/profile" />
-                  </div>
-                  <div className={S.card__content}>
-                    <Link to="/profile">
-                      <h3 className={S.card__title}>
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                    </Link>
-                    <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                    <p className={S.card__place}>Санкт Петербург</p>
-                    <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                  </div>
-                </div>
-              </div>
-              <div className={S.cards__item}>
-                <div className={S.cards__card}>
-                  <div className={S.card__img}>
-                    <Link to="/profile" />
-                  </div>
-                  <div className={S.card__content}>
-                    <Link to="/profile">
-                      <h3 className={S.card__title}>
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                    </Link>
-                    <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                    <p className={S.card__place}>Санкт Петербург</p>
-                    <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                  </div>
-                </div>
-              </div>
-              <div className={S.cards__item}>
-                <div className={S.cards__card}>
-                  <div className={S.card__img}>
-                    <Link to="/profile" />
-                  </div>
-                  <div className={S.card__content}>
-                    <Link to="/profile">
-                      <h3 className={S.card__title}>
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                    </Link>
-                    <p className={S.card__price}>2&nbsp;200&nbsp;₽</p>
-                    <p className={S.card__place}>Санкт Петербург</p>
-                    <p className={S.card__date}>Сегодня в&nbsp;10:45</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Products />
         </div>
       </main>
     </div>

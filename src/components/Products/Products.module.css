@@ -1,0 +1,37 @@
+.content__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 270px));
+    grid-gap: 40px 26px;
+    overflow-y: auto;
+    justify-items: center;
+    justify-content: center;
+}
+
+.card__img {
+    height: 270px;
+    background-image: url(../../../public/img/TriumphPro.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card__title {
+    font-size: 22px;
+    color: #009EE4;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.card__price {
+    font-size: 22px;
+    line-height: 33px;
+    margin-bottom: 10px;
+}
+
+.card__place {
+    margin-bottom: 4px;
+}
+
+.card__place, .card__date {
+    line-height: 21px;
+    color: #5F5F5F;
+}

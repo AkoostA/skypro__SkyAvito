@@ -1,92 +1,13 @@
 .container {
-    max-width: 1440px;
-    width: 100%;
-    margin: 0 auto;
     background-color: #FFFFFF;
 }
 
-.header {
-    background-color: #009EE4;
-}
-
-.header__nav {
-    max-width: 1178px;
-    margin: 0 auto;
-    padding: 0 10px;
-    height: 79px;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-}
-
-.btn__put, .btn__personal {
-    border: 1px solid #FFFFFF;
-    border-radius: 6px;
-    background-color: transparent;
-    color: #FFFFFF;
-    font-size: 16px;
-    line-height: 1;
-    height: 40px;
-}
-
-.btn__put:hover, .btn__personal:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid #FFFFFF;
-}
-
-.btn__put {
-    width: 232px;
-}
-
-.btn__personal {
-    width: 173px;
-    margin-left: 10px;
-}
-
 .main__container {
-    max-width: 1178px;
-    margin: 0 auto;
     padding: 0px 10px 79px;
 }
 
-.main__menu {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    padding: 11px 0;
-    width: 100%;
-    padding: 31px 10px 64px;
-}
-
-.menu__logo {
-    width: 55px;
-    height: 38px;
-    background-image: url(../../../public/img/logo.png);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.menu__form {
-    margin-left: 60px;
-    max-width: 1044px;
-    width: 100%;
-}
-
-.menu__btn {
-    width: 241px;
-    height: 50px;
-    background-color: #009EE4;
-    border: 1px solid #009EE4;
-    border-radius: 6px;
-    font-size: 16px;
-    line-height: 1;
-    color: #FFFFFF;
-}
-
-.menu__btn:hover {
-    background-color: #0080C1;
+.main__center {
+    margin-left: 140px;
 }
 
 .main__name {
@@ -195,48 +116,4 @@
 .main__title {
     font-size: 32px;
     line-height: 70px;
-}
-
-.main__content {
-    width: 100%;
-    margin: 0 auto;
-}
-
-.content__cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 270px));
-    grid-gap: 40px 26px;
-    overflow-y: auto;
-    justify-items: center;
-    justify-content: center;
-}
-
-.card__img {
-    height: 270px;
-    background-image: url(../../../public/img/pic5.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-
-.card__title {
-    font-size: 22px;
-    color: #009EE4;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.card__price {
-    font-size: 22px;
-    line-height: 33px;
-    margin-bottom: 10px;
-}
-
-.card__place {
-    margin-bottom: 4px;
-}
-
-.card__place, .card__date {
-    line-height: 21px;
-    color: #5F5F5F;
 }
