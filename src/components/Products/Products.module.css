@@ -9,9 +9,16 @@
 
 .card__img {
     height: 270px;
-    background-image: url(../../../public/img/TriumphPro.webp);
+    width: 270px;
+}
+
+.noImg {
+    height: 270px;
+    width: 270px;
+    background-image: url(../../../public/img/noImg.svg);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-position: center;
+    background-size: contain;
 }
 
 .card__title {

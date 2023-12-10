@@ -1,7 +1,7 @@
-import S from "./Main.module.css";
 import Header from "../../components/Header/Header";
 import Search from "../../components/Search/Search";
 import Products from "../../components/Products/Products";
+import S from "./Main.module.css";
 
 function Main() {
   return (
