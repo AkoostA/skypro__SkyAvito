@@ -1,16 +1,20 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { normalizeDate, searchItem } from "../../helper/helper";
 import { productsUpdate } from "../../store/reducers/reducers";
 import { getAllProducts } from "../../api/api";
-import { normalizeDate } from "../../helper/helper";
-import { productsSelector } from "../../store/selectors/selectors";
+import {
+  productsSelector,
+  searchSelector,
+} from "../../store/selectors/selectors";
 import S from "./Products.module.css";
 
 function Products() {
   const dispatch = useDispatch();
   const location = useLocation().pathname;
   const products = useSelector(productsSelector);
+  const search = useSelector(searchSelector);
 
   const allProducts = async () => {
     const resp = await getAllProducts();
@@ -25,7 +29,10 @@ function Products() {
     <div className={S.main__content}>
       <div className={S.content__cards}>
         {products.map((product) => (
-          <div className={S.cards__item} key={product.id}>
+          <div
+            className={searchItem(product.title, search) ? S.item : S.hide}
+            key={product.id}
+          >
             <div className={S.cards__card}>
               {product.images[0] ? (
                 <img

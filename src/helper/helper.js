@@ -91,3 +91,10 @@ export function normalizeDate(time) {
 
   return `${day} ${month} в ${hours}:${minutes}`;
 }
+
+export function searchItem(title, search) {
+  const titleLow = lowString(title);
+  const searchLow = lowString(search);
+  if (titleLow.search(searchLow) === -1) return false;
+  return true;
+}

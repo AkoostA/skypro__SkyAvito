@@ -4,3 +4,4 @@ export default mainSelector;
 
 export const userSelector = (store) => mainSelector(store).user;
 export const productsSelector = (store) => mainSelector(store).products;
+export const searchSelector = (store) => mainSelector(store).search;
