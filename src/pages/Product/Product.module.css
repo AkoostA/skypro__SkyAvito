@@ -12,7 +12,6 @@
 
 .article__content {
     display: flex;
-    justify-content: center;
 }
 
 .article__left {
@@ -138,11 +137,13 @@
     margin-left: 12px;
 }
 
-.author__name {
+.author__btn {
     font-size: 20px;
     line-height: 26px;
     font-weight: 600;
     color: #009EE4;
+    font-weight: bold;
+    background: transparent;
 }
 
 .author__about {

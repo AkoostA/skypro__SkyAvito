@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { productSelector } from "../../store/selectors/selectors";
+import { normalizeDate, sellsFromData } from "../../helper/helper";
 import Header from "../../components/Header/Header";
 import MainMenu from "../../components/MainMenu/MainMenu";
 import S from "./Product.module.css";
 
 function Product() {
+  const product = useSelector(productSelector);
+
   return (
     <div className={S.container}>
       <Header />
@@ -28,27 +33,29 @@ function Product() {
             </div>
             <div className={S.article__right}>
               <div className={S.article__block}>
-                <h3 className={S.article__title}>
-                  Ракетка для большого тенниса Triumph Pro STС Б/У
-                </h3>
+                <h3 className={S.article__title}>{product.title}</h3>
                 <div className={S.article__info}>
-                  <p className={S.article__date}>Сегодня в 10:45</p>
-                  <p className={S.article__city}>Санкт-Петербург</p>
+                  <p className={S.article__date}>
+                    {normalizeDate(product.created_on)}
+                  </p>
+                  <p className={S.article__city}>{product.user?.city}</p>
                   <Link className={S.article__link} to="/product">
                     23 отзыва
                   </Link>
                 </div>
-                <p className={S.article__price}>2 200 ₽</p>
+                <p className={S.article__price}>{product.price} ₽</p>
                 <button className={S.article__btn} type="button">
-                  Показать&nbsp;телефон
-                  <span>8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ</span>
+                  Показать телефон
+                  <span>{product.user.phone}</span>
                 </button>
                 <div className={S.article__author}>
                   <div className={S.author__img} />
                   <div className={S.author__cont}>
-                    <Link className={S.author__name} to="/product">Кирилл</Link>
+                    <button className={S.author__btn} type="button">
+                      {product.user.name}
+                    </button>
                     <p className={S.author__about}>
-                      Продает товары с августа 2021
+                      Продает товары с {sellsFromData(product.user.sells_from)}
                     </p>
                   </div>
                 </div>
@@ -59,15 +66,7 @@ function Product() {
         <div className={S.main__container}>
           <h3 className={S.main__title}>Описание товара</h3>
           <div className={S.main__content}>
-            <p className={S.main__text}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+            <p className={S.main__text}>{product.description}</p>
           </div>
         </div>
       </main>

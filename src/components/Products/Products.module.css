@@ -21,11 +21,13 @@
     background-size: contain;
 }
 
-.card__title {
+.card__btn {
     font-size: 22px;
+    font-weight: bold;
     color: #009EE4;
     margin-top: 20px;
     margin-bottom: 10px;
+    background: transparent;
 }
 
 .card__price {

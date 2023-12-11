@@ -92,6 +92,13 @@ export function normalizeDate(time) {
   return `${day} ${month} в ${hours}:${minutes}`;
 }
 
+export function sellsFromData(date) {
+  const month = date?.slice(date.indexOf("-") + 1, date.lastIndexOf("-"));
+  const year = date?.slice(0, date.indexOf("-"));
+
+  return `${parseMonth(Number(month) - 1)} ${year}`;
+}
+
 export function searchItem(title, search) {
   const titleLow = lowString(title);
   const searchLow = lowString(search);

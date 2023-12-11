@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { normalizeDate, searchItem } from "../../helper/helper";
-import { productsUpdate } from "../../store/reducers/reducers";
+import { productUpdate, productsUpdate } from "../../store/reducers/reducers";
 import { getAllProducts } from "../../api/api";
 import {
   productsSelector,
@@ -12,9 +12,16 @@ import S from "./Products.module.css";
 
 function Products() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation().pathname;
   const products = useSelector(productsSelector);
   const search = useSelector(searchSelector);
+
+  const productDetail = (product) => {
+    dispatch(productUpdate(product));
+    localStorage.setItem("product", JSON.stringify(product));
+    navigate("/product");
+  };
 
   const allProducts = async () => {
     const resp = await getAllProducts();
@@ -44,9 +51,13 @@ function Products() {
                 <div className={S.noImg} />
               )}
               <div className={S.card__content}>
-                <Link to="/">
-                  <h3 className={S.card__title}>{product.title}</h3>
-                </Link>
+                <button
+                  className={S.card__btn}
+                  onClick={() => productDetail(product)}
+                  type="button"
+                >
+                  {product.title}
+                </button>
                 <p className={S.card__price}>{product.price} ₽</p>
                 <p className={S.card__place}>{product.user.city}</p>
                 <p className={S.card__date}>

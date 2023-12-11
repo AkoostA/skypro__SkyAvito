@@ -11,3 +11,8 @@ export async function getImgProduct({ id }) {
   const resp = await fetch(`${PATH}/images/${id}`);
   return resp.json();
 }
+
+export async function getCommentsProduct({ id }) {
+  const resp = await fetch(`${PATH}/ads/${id}/comments`);
+  return resp.json();
+}
