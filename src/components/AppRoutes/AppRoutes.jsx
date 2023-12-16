@@ -4,8 +4,9 @@ import Main from "../../pages/Main/Main";
 import Login from "../../pages/Login/Login";
 import Register from "../../pages/Register/Register";
 import Profile from "../../pages/Profile/Profile";
-import NotFound from "../../pages/NotFound/NotFound";
+import ProfileSeller from "../../pages/ProfileSeller/ProfileSeller";
 import Product from "../../pages/Product/Product";
+import NotFound from "../../pages/NotFound/NotFound";
 
 function AppRoutes() {
   return (
@@ -14,6 +15,7 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/profile-seller" element={<ProfileSeller />} />
       <Route path="/product" element={<Product />} />
       <Route element={<ProtectedRoute />}>
         <Route path="*" element={<NotFound />} />

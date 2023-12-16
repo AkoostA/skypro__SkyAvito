@@ -96,28 +96,6 @@
     margin-bottom: 20px;
 }
 
-.article__btn {
-    background-color: #009EE4;
-    border-radius: 6px;
-    border: 1px solid #009EE4;
-    width: 214px;
-    height: 62px;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 22px;
-    color: #FFFFFF;
-}
-
-.article__btn:hover {
-    background-color: #0080C1;
-}
-
-.article__btn span {
-    display: block;
-    font-size: 14px;
-    font-weight: 400;
-}
-
 .article__author {
     margin-top: 34px;
     margin-bottom: 20px;

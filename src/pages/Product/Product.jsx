@@ -1,13 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { productSelector } from "../../store/selectors/selectors";
 import { normalizeDate, sellsFromData } from "../../helper/helper";
 import Header from "../../components/Header/Header";
 import MainMenu from "../../components/MainMenu/MainMenu";
 import S from "./Product.module.css";
+import PhoneButton from "../../components/PhoneButton/PhoneButton";
 
 function Product() {
-  const product = useSelector(productSelector);
+  let product = useSelector(productSelector);
+  const navigate = useNavigate();
+
+  if (!product) product = JSON.parse(localStorage.getItem("product"));
+
+  const toProfile = () => {
+    navigate("/profile-seller");
+  };
 
   return (
     <div className={S.container}>
@@ -20,14 +28,23 @@ function Product() {
           <div className={S.article__content}>
             <div className={S.article__left}>
               <div className={S.article__imgBox}>
-                <div className={S.article__imgMain} />
+                {product.images[0] ? (
+                  <img
+                    className={S.article__imgMain}
+                    src={`http://127.0.0.1:8090/${product.images[0].url}`}
+                    alt={product.title}
+                  />
+                ) : (
+                  <div className={S.article__imgMain} />
+                )}
                 <div className={S.article__imgBar}>
-                  <div className={S.article__imgSide} />
-                  <div className={S.article__imgSide} />
-                  <div className={S.article__imgSide} />
-                  <div className={S.article__imgSide} />
-                  <div className={S.article__imgSide} />
-                  <div className={S.article__imgSide} />
+                  {product.images?.map((img) => (
+                    <img
+                      className={S.article__imgSide}
+                      src={`http://127.0.0.1:8090/${img.url}`}
+                      alt={product.title}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
@@ -44,14 +61,15 @@ function Product() {
                   </Link>
                 </div>
                 <p className={S.article__price}>{product.price} ₽</p>
-                <button className={S.article__btn} type="button">
-                  Показать телефон
-                  <span>{product.user.phone}</span>
-                </button>
+                <PhoneButton phone={product.user.phone}/>
                 <div className={S.article__author}>
                   <div className={S.author__img} />
                   <div className={S.author__cont}>
-                    <button className={S.author__btn} type="button">
+                    <button
+                      className={S.author__btn}
+                      onClick={toProfile}
+                      type="button"
+                    >
                       {product.user.name}
                     </button>
                     <p className={S.author__about}>

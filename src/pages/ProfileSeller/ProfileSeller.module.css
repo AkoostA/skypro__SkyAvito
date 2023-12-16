@@ -1,0 +1,53 @@
+.container {
+    background-color: #FFFFFF;
+}
+
+.main {
+    margin-left: 140px;
+}
+
+.main__title {
+    font-size: 40px;
+    line-height: 42px;
+    margin-bottom: 30px;
+}
+
+.main__profileSell {
+    padding: 0 0 70px;
+}
+
+.profileSell__seller {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.seller__left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.seller__img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background-color: #F0F0F0;
+}
+
+.seller__title {
+    font-size: 20px;
+    line-height: 40px;
+}
+
+.seller__city {
+    line-height: 21px;
+    color: #5F5F5F;
+    margin-bottom: 10px;
+}
+
+.seller__inf {
+    line-height: 21px;
+    color: #5F5F5F;
+    margin-bottom: 10px
+}

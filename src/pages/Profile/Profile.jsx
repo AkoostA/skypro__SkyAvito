@@ -2,8 +2,8 @@
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Products from "../../components/Products/Products";
-import S from "./Profile.module.css";
 import MainMenu from "../../components/MainMenu/MainMenu";
+import S from "./Profile.module.css";
 
 function Profile() {
   return (

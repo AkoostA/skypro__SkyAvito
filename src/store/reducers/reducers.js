@@ -6,9 +6,7 @@ const initialState = {
     test: "test",
   },
   products: [],
-  product: {
-    user: {}
-  },
+  product: null,
   search: "",
 };
 
