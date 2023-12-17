@@ -1,15 +1,20 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { productSelector } from "../../store/selectors/selectors";
 import { normalizeDate, sellsFromData } from "../../helper/helper";
+import { getCommentsProduct } from "../../api/api";
 import Header from "../../components/Header/Header";
+import Reviews from "../../components/Reviews/Reviews";
 import MainMenu from "../../components/MainMenu/MainMenu";
-import S from "./Product.module.css";
 import PhoneButton from "../../components/PhoneButton/PhoneButton";
+import S from "./Product.module.css";
 
 function Product() {
   let product = useSelector(productSelector);
   const navigate = useNavigate();
+  const [reviewsCheck, setReviewsCheck] = useState(false);
+  const [reviewsComments, setReviewsComments] = useState(false);
 
   if (!product) product = JSON.parse(localStorage.getItem("product"));
 
@@ -17,8 +22,24 @@ function Product() {
     navigate("/profile-seller");
   };
 
+  const getComments = async () => {
+    const resp = await getCommentsProduct({ id: product.id });
+    setReviewsComments(resp);
+  };
+
+  useEffect(() => {
+    getComments();
+  });
+
   return (
     <div className={S.container}>
+      {reviewsCheck && <div className={S.cover} />}
+      {reviewsCheck && (
+        <Reviews
+          reviewsComments={reviewsComments}
+          setReviewsCheck={setReviewsCheck}
+        />
+      )}
       <Header />
       <main className={S.main}>
         <div className={S.main__container}>
@@ -35,7 +56,7 @@ function Product() {
                     alt={product.title}
                   />
                 ) : (
-                  <div className={S.article__imgMain} />
+                  <div className={S.article__imgMain}/>
                 )}
                 <div className={S.article__imgBar}>
                   {product.images?.map((img) => (
@@ -43,6 +64,7 @@ function Product() {
                       className={S.article__imgSide}
                       src={`http://127.0.0.1:8090/${img.url}`}
                       alt={product.title}
+                      key={img.id}
                     />
                   ))}
                 </div>
@@ -56,12 +78,16 @@ function Product() {
                     {normalizeDate(product.created_on)}
                   </p>
                   <p className={S.article__city}>{product.user?.city}</p>
-                  <Link className={S.article__link} to="/product">
-                    23 отзыва
-                  </Link>
+                  <button
+                    className={S.article__btn}
+                    onClick={() => setReviewsCheck(true)}
+                    type="button"
+                  >
+                    {reviewsComments.length}
+                  </button>
                 </div>
                 <p className={S.article__price}>{product.price} ₽</p>
-                <PhoneButton phone={product.user.phone}/>
+                <PhoneButton phone={product.user.phone} />
                 <div className={S.article__author}>
                   <div className={S.author__img} />
                   <div className={S.author__cont}>

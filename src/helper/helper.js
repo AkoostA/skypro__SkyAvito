@@ -99,6 +99,13 @@ export function sellsFromData(date) {
   return `${parseMonth(Number(month) - 1)} ${year}`;
 }
 
+export function commentData(date) {
+  const month = date?.slice(date.indexOf("-") + 1, date.lastIndexOf("-"));
+  const day = date?.slice(8, 10);
+
+  return `${day} ${parseMonth(Number(month) - 1)}`;
+}
+
 export function searchItem(title, search) {
   const titleLow = lowString(title);
   const searchLow = lowString(search);
