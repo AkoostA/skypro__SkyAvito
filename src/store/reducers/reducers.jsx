@@ -2,11 +2,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: {
-    test: "test",
-  },
+  user: {},
   products: [],
-  product: null,
+  product: {},
   search: "",
 };
 
@@ -14,8 +12,8 @@ const reducers = createSlice({
   name: "reducers",
   initialState,
   reducers: {
-    userUpdate: (state) => {
-      state.user = true;
+    userUpdate: (state, actions) => {
+      state.user = actions.payload;
     },
     productsUpdate: (state, actions) => {
       state.products = actions.payload;

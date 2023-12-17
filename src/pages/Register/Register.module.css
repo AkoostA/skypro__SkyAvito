@@ -82,3 +82,10 @@
 .btn__enter:active {
     background-color: #D9D9D9;
 }
+
+.error {
+    position: absolute;
+    top: 520px;
+    color: coral;
+    text-align: center;
+}

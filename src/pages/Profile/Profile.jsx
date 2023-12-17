@@ -1,11 +1,22 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Link } from "react-router-dom";
-import Header from "../../components/Header/Header";
+import { useDispatch, useSelector } from "react-redux";
+import { userSelector } from "../../store/selectors/selectors";
+import { userUpdate } from "../../store/reducers/reducers";
 import Products from "../../components/Products/Products";
 import MainMenu from "../../components/MainMenu/MainMenu";
+import Header from "../../components/Header/Header";
 import S from "./Profile.module.css";
 
 function Profile() {
+  const dispatch = useDispatch();
+  let user = useSelector(userSelector);
+
+  if (!user.id) {
+    user = JSON.parse(localStorage.getItem("user"));
+    dispatch(userUpdate(user));
+  }
+
   return (
     <div className={S.container}>
       <Header />
@@ -13,7 +24,7 @@ function Profile() {
         <div className={S.main__container}>
           <div className={S.main__center}>
             <MainMenu />
-            <h2 className={S.main__name}>Здравствуйте, Антон!</h2>
+            <h2 className={S.main__name}>{`Здравствуйте, ${user.name}`}</h2>
             <div className={S.main__profile}>
               <div className={S.profile__content}>
                 <h3 className={S.profile__title}>Настройки профиля</h3>
@@ -37,7 +48,7 @@ function Profile() {
                           className={S.settings__input}
                           name="first__name"
                           type="text"
-                          placeholder=""
+                          placeholder={user.name}
                         />
                       </div>
                       <div className={S.settings__div}>
@@ -51,7 +62,7 @@ function Profile() {
                           className={S.settings__input}
                           name="last__name"
                           type="text"
-                          placeholder=""
+                          placeholder={user.surname}
                         />
                       </div>
                       <div className={S.settings__div}>
@@ -62,7 +73,7 @@ function Profile() {
                           className={S.settings__input}
                           name="city"
                           type="text"
-                          placeholder=""
+                          placeholder={user.city}
                         />
                       </div>
                       <div className={S.settings__div}>
@@ -73,7 +84,7 @@ function Profile() {
                           className={S.settings__phone}
                           name="phone"
                           type="tel"
-                          placeholder=""
+                          placeholder={user.phone}
                         />
                       </div>
                       <button className={S.settings__btn} type="button">

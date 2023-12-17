@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import S from "./Login.module.css";
 
 function Login() {
+  const navigate = useNavigate();
+
   return (
     <div className={S.container__enter}>
       <div className={S.modal__block}>
@@ -22,7 +24,11 @@ function Login() {
           <button className={S.btn__enter} type="button">
             Войти
           </button>
-          <button className={S.btn__register} type="button">
+          <button
+            className={S.btn__register}
+            onClick={() => navigate("/register")}
+            type="button"
+          >
             Зарегистрироваться
           </button>
         </form>

@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { productSelector } from "../../store/selectors/selectors";
-import { normalizeDate, sellsFromData } from "../../helper/helper";
 import { getCommentsProduct } from "../../api/api";
+import { normalizeDate, sellsFromData } from "../../helper/helper";
+import { productUpdate } from "../../store/reducers/reducers";
 import Header from "../../components/Header/Header";
 import Reviews from "../../components/Reviews/Reviews";
 import MainMenu from "../../components/MainMenu/MainMenu";
@@ -12,11 +13,15 @@ import S from "./Product.module.css";
 
 function Product() {
   let product = useSelector(productSelector);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [reviewsCheck, setReviewsCheck] = useState(false);
   const [reviewsComments, setReviewsComments] = useState(false);
 
-  if (!product) product = JSON.parse(localStorage.getItem("product"));
+  if (!product.id) {
+    product = JSON.parse(localStorage.getItem("product"));
+    dispatch(productUpdate(product));
+  }
 
   const toProfile = () => {
     navigate("/profile-seller");
@@ -56,7 +61,7 @@ function Product() {
                     alt={product.title}
                   />
                 ) : (
-                  <div className={S.article__imgMain}/>
+                  <div className={S.article__imgMain} />
                 )}
                 <div className={S.article__imgBar}>
                   {product.images?.map((img) => (
