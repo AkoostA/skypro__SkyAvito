@@ -57,17 +57,17 @@ function Product() {
                 {product.images[0] ? (
                   <img
                     className={S.article__imgMain}
-                    src={`http://127.0.0.1:8090/${product.images[0].url}`}
+                    src={`http://localhost:8090/${product.images[0].url}`}
                     alt={product.title}
                   />
                 ) : (
-                  <div className={S.article__imgMain} />
+                  <div className={S.article__NoImgMain} />
                 )}
                 <div className={S.article__imgBar}>
                   {product.images?.map((img) => (
                     <img
                       className={S.article__imgSide}
-                      src={`http://127.0.0.1:8090/${img.url}`}
+                      src={`http://localhost:8090/${img.url}`}
                       alt={product.title}
                       key={img.id}
                     />
@@ -92,9 +92,21 @@ function Product() {
                   </button>
                 </div>
                 <p className={S.article__price}>{product.price} ₽</p>
-                <PhoneButton phone={product.user.phone} />
+                <PhoneButton
+                  phone={
+                    product.user.phone ? product.user.phone : "000 000 00 00"
+                  }
+                />
                 <div className={S.article__author}>
-                  <div className={S.author__img} />
+                  {product.user.avatar ? (
+                    <img
+                      className={S.author__img}
+                      src={`http://localhost:8090/${product.user.avatar}`}
+                      alt={product.title}
+                    />
+                  ) : (
+                    <div className={S.author__NoImg} />
+                  )}
                   <div className={S.author__cont}>
                     <button
                       className={S.author__btn}

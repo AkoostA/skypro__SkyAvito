@@ -97,7 +97,7 @@ function Profile() {
             </div>
             <h3 className={S.main__title}>Мои товары</h3>
           </div>
-          <Products />
+          <Products id={user.id} />
         </div>
       </main>
     </div>

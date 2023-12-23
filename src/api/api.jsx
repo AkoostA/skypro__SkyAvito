@@ -7,6 +7,11 @@ export async function getAllProducts() {
   return resp.json();
 }
 
+export async function getUsersProducts({ id }) {
+  const resp = await fetch(`${PATH}/ads?user_id=${id}`);
+  return resp.json();
+}
+
 export async function getImgProduct({ id }) {
   const resp = await fetch(`${PATH}/images/${id}`);
   return resp.json();

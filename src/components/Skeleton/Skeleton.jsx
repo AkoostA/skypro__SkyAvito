@@ -2,7 +2,7 @@ function Skeleton({ items, w, h }) {
   const style = {
     width: w,
     height: h,
-    background: "#009EE4",
+    background: "#F0F0F0",
   };
 
   const skeletons = [];

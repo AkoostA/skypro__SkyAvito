@@ -5,12 +5,12 @@ import S from "./Header.module.css";
 
 function Header() {
   const location = useLocation().pathname;
-  const navigate = useNavigate();
   const user = useSelector(userSelector);
+  const navigate = useNavigate();
 
   const toProfile = () => {
     if (!user.id) navigate("/login");
-    navigate("/profile");
+    if (user.id) navigate("/profile");
   };
 
   return (

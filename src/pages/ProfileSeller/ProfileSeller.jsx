@@ -1,15 +1,21 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { productSelector } from "../../store/selectors/selectors";
 import { sellsFromData } from "../../helper/helper";
+import { productUpdate } from "../../store/reducers/reducers";
 import PhoneButton from "../../components/PhoneButton/PhoneButton";
 import Header from "../../components/Header/Header";
 import MainMenu from "../../components/MainMenu/MainMenu";
+import Products from "../../components/Products/Products";
 import S from "./ProfileSeller.module.css";
 
 function ProfileSeller() {
   let product = useSelector(productSelector);
+  const dispatch = useDispatch();
 
-  if (!product) product = JSON.parse(localStorage.getItem("product"));
+  if (!product.id) {
+    product = JSON.parse(localStorage.getItem("product"));
+    dispatch(productUpdate(product));
+  }
 
   return (
     <div className={S.container}>
@@ -23,7 +29,15 @@ function ProfileSeller() {
               <div className={S.profileSell__content}>
                 <div className={S.profileSell__seller}>
                   <div className={S.seller__left}>
-                    <div className={S.seller__img} />
+                    {product.user.avatar ? (
+                      <img
+                        className={S.seller__img}
+                        src={`http://localhost:8090/${product.user.avatar}`}
+                        alt={product.title}
+                      />
+                    ) : (
+                      <div className={S.seller__NoImg} />
+                    )}
                   </div>
                   <div className={S.seller__right}>
                     <h3 className={S.seller__title}>{product.user.name}</h3>
@@ -31,12 +45,20 @@ function ProfileSeller() {
                     <p className={S.seller__inf}>
                       Продает товары с {sellsFromData(product.user.sells_from)}
                     </p>
-                    <PhoneButton phone={product.user.phone} />
+                    <PhoneButton
+                      phone={
+                        product.user.phone
+                          ? product.user.phone
+                          : "000 000 00 00"
+                      }
+                    />
                   </div>
                 </div>
               </div>
             </div>
+            <h3 className={S.main__title}>Мои товары</h3>
           </div>
+          <Products id={product.user.id} />
         </div>
       </main>
     </div>
