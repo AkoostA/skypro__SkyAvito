@@ -124,11 +124,12 @@ function Register() {
             disabled={disabled}
             type="button"
           >
-            Зарегистрироваться
+            {disabled ? "...Регистрируемся" : "Зарегистрироваться"}
           </button>
           <button
             className={S.btn__enter}
             onClick={() => navigate("/login")}
+            disabled={disabled}
             type="button"
           >
             Войти

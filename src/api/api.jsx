@@ -3,7 +3,7 @@ const PATH = "http://localhost:8090";
 export default PATH;
 
 export async function getAllProducts() {
-  const resp = await fetch(`${PATH}/ads`);
+  const resp = await fetch(`${PATH}/ads?sorting=new`);
   return resp.json();
 }
 
@@ -19,6 +19,32 @@ export async function getImgProduct({ id }) {
 
 export async function getCommentsProduct({ id }) {
   const resp = await fetch(`${PATH}/ads/${id}/comments`);
+  return resp.json();
+}
+
+export async function getUser({ token }) {
+  const resp = await fetch(`${PATH}/user`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return resp.json();
+}
+
+export async function getToken({ login, password }) {
+  const resp = await fetch(`${PATH}/auth/login`, {
+    method: "POST",
+    body: JSON.stringify({
+      email: `${login}@gmail.com`,
+      password,
+    }),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+
+  if (resp.status === 401) throw new Error("Введены не верный логин или пароль");
+
   return resp.json();
 }
 
