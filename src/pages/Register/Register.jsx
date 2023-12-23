@@ -1,6 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { addRegister } from "../../api/api";
 import { safeString } from "../../helper/helper";
 import { userUpdate } from "../../store/reducers/reducers";
@@ -33,15 +33,15 @@ function Register() {
     try {
       setDisabled(true);
       checkInput();
-      const resp = await addRegister({
+      const respRegister = await addRegister({
         login: safeString(login),
         password,
         name: safeString(name),
         surname: safeString(surname),
         city: safeString(city),
       });
-      dispatch(userUpdate(resp));
-      localStorage.setItem("user", JSON.stringify(resp));
+      dispatch(userUpdate(respRegister));
+      localStorage.setItem("user", JSON.stringify(respRegister));
       navigate("/profile");
     } catch (error) {
       setError(error.message);

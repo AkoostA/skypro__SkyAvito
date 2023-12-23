@@ -3,7 +3,6 @@ import { commentData } from "../../helper/helper";
 import S from "./Reviews.module.css";
 
 function Reviews({ reviewsComments, setReviewsCheck }) {
-
   return (
     <div className={S.containerReviews}>
       <div className={S.modal__block}>

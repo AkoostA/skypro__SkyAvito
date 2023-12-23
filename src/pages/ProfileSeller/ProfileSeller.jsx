@@ -1,21 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { productSelector } from "../../store/selectors/selectors";
+import { useSelector } from "react-redux";
 import { sellsFromData } from "../../helper/helper";
-import { productUpdate } from "../../store/reducers/reducers";
-import PhoneButton from "../../components/PhoneButton/PhoneButton";
+import { productSelector } from "../../store/selectors/selectors";
 import Header from "../../components/Header/Header";
 import MainMenu from "../../components/MainMenu/MainMenu";
 import Products from "../../components/Products/Products";
+import PhoneButton from "../../components/PhoneButton/PhoneButton";
 import S from "./ProfileSeller.module.css";
 
 function ProfileSeller() {
-  let product = useSelector(productSelector);
-  const dispatch = useDispatch();
-
-  if (!product.id) {
-    product = JSON.parse(localStorage.getItem("product"));
-    dispatch(productUpdate(product));
-  }
+  const product = useSelector(productSelector);
 
   return (
     <div className={S.container}>

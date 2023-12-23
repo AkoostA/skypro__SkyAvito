@@ -43,7 +43,8 @@ export async function getToken({ login, password }) {
     },
   });
 
-  if (resp.status === 401) throw new Error("Введены не верный логин или пароль");
+  if (resp.status === 401)
+    throw new Error("Введены не верный логин или пароль");
 
   return resp.json();
 }

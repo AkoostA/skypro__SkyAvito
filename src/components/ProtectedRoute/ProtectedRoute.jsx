@@ -5,9 +5,7 @@ import { userSelector } from "../../store/selectors/selectors";
 function ProtectedRoute() {
   const user = useSelector(userSelector);
 
-  if (!user.login) {
-    return <Navigate to="/" replace />;
-  }
+  if (!user) <Navigate to="/" replace />;
 
   return <Outlet />;
 }

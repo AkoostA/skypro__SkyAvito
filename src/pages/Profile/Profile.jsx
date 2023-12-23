@@ -1,21 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { userSelector } from "../../store/selectors/selectors";
-import { userUpdate } from "../../store/reducers/reducers";
 import Products from "../../components/Products/Products";
 import MainMenu from "../../components/MainMenu/MainMenu";
 import Header from "../../components/Header/Header";
 import S from "./Profile.module.css";
 
 function Profile() {
-  const dispatch = useDispatch();
-  let user = useSelector(userSelector);
-
-  if (!user.id) {
-    user = JSON.parse(localStorage.getItem("user"));
-    dispatch(userUpdate(user));
-  }
+  const user = useSelector(userSelector);
 
   return (
     <div className={S.container}>

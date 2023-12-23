@@ -1,5 +1,5 @@
-import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { userSelector } from "../../store/selectors/selectors";
 import S from "./Header.module.css";
 
@@ -9,8 +9,8 @@ function Header() {
   const navigate = useNavigate();
 
   const toProfile = () => {
-    if (!user.id) navigate("/login");
-    if (user.id) navigate("/profile");
+    if (!user) navigate("/login");
+    if (user) navigate("/profile");
   };
 
   return (

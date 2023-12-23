@@ -1,15 +1,16 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import S from "./MainMenu.module.css";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { tokenUpdate, userUpdate } from "../../store/reducers/reducers";
+import S from "./MainMenu.module.css";
 
 function MainMenu() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation().pathname;
 
   const exit = () => {
-    dispatch(userUpdate({}));
-    dispatch(tokenUpdate({}));
+    dispatch(userUpdate(null));
+    dispatch(tokenUpdate(null));
     localStorage.clear();
     navigate("/");
   };
@@ -25,9 +26,11 @@ function MainMenu() {
         >
           Вернуться на главную
         </button>
-        <button className={S.exit__btn} onClick={exit} type="button">
-          Выход
-        </button>
+        {location === "/profile" && (
+          <button className={S.exit__btn} onClick={exit} type="button">
+            Выход
+          </button>
+        )}
       </form>
     </div>
   );

@@ -35,6 +35,6 @@
     margin-left: 10px;
 }
 
-.menu__btn:hover {
+.menu__btn:hover, .exit__btn:hover {
     background-color: #0080C1;
 }

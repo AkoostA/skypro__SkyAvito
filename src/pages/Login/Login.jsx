@@ -1,8 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { getToken, getUser } from "../../api/api";
+import { Link, useNavigate } from "react-router-dom";
 import { safeString } from "../../helper/helper";
+import { getToken, getUser } from "../../api/api";
 import { tokenUpdate, userUpdate } from "../../store/reducers/reducers";
 import S from "./Login.module.css";
 
@@ -23,15 +23,15 @@ function Login() {
     try {
       setDisabled(true);
       checkInput();
-      const token = await getToken({
+      const respToken = await getToken({
         login: safeString(login),
         password,
       });
-      const user = await getUser({ token: token.access_token });
-      dispatch(tokenUpdate(token));
-      dispatch(userUpdate(user));
-      localStorage.setItem("token", JSON.stringify(token));
-      localStorage.setItem("user", JSON.stringify(user));
+      const respUser = await getUser({ token: respToken.access_token });
+      dispatch(tokenUpdate(respToken));
+      dispatch(userUpdate(respUser));
+      localStorage.setItem("token", JSON.stringify(respToken));
+      localStorage.setItem("user", JSON.stringify(respUser));
       navigate("/profile");
     } catch (error) {
       setError(error.message);

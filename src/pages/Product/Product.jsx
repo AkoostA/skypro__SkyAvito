@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { productSelector } from "../../store/selectors/selectors";
+import { useNavigate } from "react-router-dom";
 import { getCommentsProduct } from "../../api/api";
+import { productSelector } from "../../store/selectors/selectors";
 import { normalizeDate, sellsFromData } from "../../helper/helper";
-import { productUpdate } from "../../store/reducers/reducers";
 import Header from "../../components/Header/Header";
 import Reviews from "../../components/Reviews/Reviews";
 import MainMenu from "../../components/MainMenu/MainMenu";
@@ -12,29 +11,19 @@ import PhoneButton from "../../components/PhoneButton/PhoneButton";
 import S from "./Product.module.css";
 
 function Product() {
-  let product = useSelector(productSelector);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const product = useSelector(productSelector);
   const [reviewsCheck, setReviewsCheck] = useState(false);
   const [reviewsComments, setReviewsComments] = useState(false);
 
-  if (!product.id) {
-    product = JSON.parse(localStorage.getItem("product"));
-    dispatch(productUpdate(product));
-  }
-
-  const toProfile = () => {
-    navigate("/profile-seller");
-  };
-
   const getComments = async () => {
-    const resp = await getCommentsProduct({ id: product.id });
-    setReviewsComments(resp);
+    const respCommentsProduct = await getCommentsProduct({ id: product.id });
+    setReviewsComments(respCommentsProduct);
   };
 
   useEffect(() => {
     getComments();
-  });
+  }, []);
 
   return (
     <div className={S.container}>
@@ -64,7 +53,7 @@ function Product() {
                   <div className={S.article__NoImgMain} />
                 )}
                 <div className={S.article__imgBar}>
-                  {product.images?.map((img) => (
+                  {product.images.map((img) => (
                     <img
                       className={S.article__imgSide}
                       src={`http://localhost:8090/${img.url}`}
@@ -110,7 +99,7 @@ function Product() {
                   <div className={S.author__cont}>
                     <button
                       className={S.author__btn}
-                      onClick={toProfile}
+                      onClick={() => navigate("/profile-seller")}
                       type="button"
                     >
                       {product.user.name}

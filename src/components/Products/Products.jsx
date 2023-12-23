@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { normalizeDate, searchItem } from "../../helper/helper";
-import { productUpdate, productsUpdate } from "../../store/reducers/reducers";
 import { getAllProducts, getUsersProducts } from "../../api/api";
+import { productUpdate, productsUpdate } from "../../store/reducers/reducers";
 import {
   productsSelector,
   searchSelector,
@@ -25,22 +25,19 @@ function Products({ id }) {
     navigate("/product");
   };
 
-  const allProducts = async () => {
-    const resp = await getAllProducts();
-    dispatch(productsUpdate(resp));
-    setLoading(false);
-  };
-
-  const userProducts = async () => {
-    const resp = await getUsersProducts({ id });
-    dispatch(productsUpdate(resp));
+  const getProducts = async () => {
+    if (location === "/") {
+      const respAllProducts = await getAllProducts();
+      dispatch(productsUpdate(respAllProducts));
+    } else {
+      const respUserProducts = await getUsersProducts({ id });
+      dispatch(productsUpdate(respUserProducts));
+    }
     setLoading(false);
   };
 
   useEffect(() => {
-    if (location === "/") allProducts();
-    if (location === "/profile-seller") userProducts();
-    if (location === "/profile") userProducts();
+    getProducts();
   }, []);
 
   return (
