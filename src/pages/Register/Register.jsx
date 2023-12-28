@@ -2,7 +2,12 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { addRegister } from "../../api/api";
-import { safeString } from "../../helper/helper";
+import {
+  formatEmail,
+  formatHttp,
+  pressEnterKey,
+  safeTextInput,
+} from "../../helper/helper";
 import { userUpdate } from "../../store/reducers/reducers";
 import S from "./Register.module.css";
 
@@ -34,24 +39,24 @@ function Register() {
       setDisabled(true);
       checkInput();
       const respRegister = await addRegister({
-        login: safeString(login),
+        login,
         password,
-        name: safeString(name),
-        surname: safeString(surname),
-        city: safeString(city),
+        name,
+        surname,
+        city,
       });
       dispatch(userUpdate(respRegister));
       localStorage.setItem("user", JSON.stringify(respRegister));
-      navigate("/profile");
+      navigate(
+        `/profile/${formatHttp(formatEmail(respRegister.email))}_${
+          respRegister.id
+        }`,
+      );
     } catch (error) {
       setError(error.message);
     } finally {
       setDisabled(false);
     }
-  };
-
-  const pressEnterKey = (event) => {
-    if (event.keyCode === 13) registerButton();
   };
 
   useEffect(() => {
@@ -66,8 +71,11 @@ function Register() {
           <input
             className={S.modal__input}
             value={login}
-            onChange={(event) => setLogin(event.target.value)}
-            onKeyDown={(event) => pressEnterKey(event)}
+            onChange={(event) => setLogin(safeTextInput(event))}
+            onKeyDown={(event) =>
+              pressEnterKey(event, registerButton, disabled)
+            }
+            maxLength={20}
             type="text"
             name="login"
             placeholder="login"
@@ -76,7 +84,10 @@ function Register() {
             className={S.modal__input}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            onKeyDown={(event) => pressEnterKey(event)}
+            onKeyDown={(event) =>
+              pressEnterKey(event, registerButton, disabled)
+            }
+            maxLength={20}
             type="password"
             name="password"
             placeholder="Пароль"
@@ -85,34 +96,46 @@ function Register() {
             className={S.modal__input}
             value={repeatPassword}
             onChange={(event) => setRepeatPassword(event.target.value)}
-            onKeyDown={(event) => pressEnterKey(event)}
+            onKeyDown={(event) =>
+              pressEnterKey(event, registerButton, disabled)
+            }
+            maxLength={20}
             type="password"
-            name="password"
+            name="repeatPassword"
             placeholder="Повторите пароль"
           />
           <input
             className={S.modal__input}
             value={name}
-            onChange={(event) => setName(event.target.value)}
-            onKeyDown={(event) => pressEnterKey(event)}
+            onChange={(event) => setName(safeTextInput(event))}
+            onKeyDown={(event) =>
+              pressEnterKey(event, registerButton, disabled)
+            }
+            maxLength={20}
             type="text"
-            name="first-name"
+            name="name"
             placeholder="Имя (необязательно)"
           />
           <input
             className={S.modal__input}
             value={surname}
-            onChange={(event) => setSurname(event.target.value)}
-            onKeyDown={(event) => pressEnterKey(event)}
+            onChange={(event) => setSurname(safeTextInput(event))}
+            onKeyDown={(event) =>
+              pressEnterKey(event, registerButton, disabled)
+            }
+            maxLength={20}
             type="text"
-            name="last-name"
+            name="surname"
             placeholder="Фамилия (необязательно)"
           />
           <input
             className={S.modal__input}
             value={city}
-            onChange={(event) => setCity(event.target.value)}
-            onKeyDown={(event) => pressEnterKey(event)}
+            onChange={(event) => setCity(safeTextInput(event))}
+            onKeyDown={(event) =>
+              pressEnterKey(event, registerButton, disabled)
+            }
+            maxLength={20}
             type="text"
             name="city"
             placeholder="Город (необязательно)"

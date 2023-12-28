@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { normalizeDate, searchItem } from "../../helper/helper";
+import {
+  formatUppString,
+  formatDate,
+  searchItem,
+  formatHttp,
+} from "../../helper/helper";
 import { getAllProducts, getUsersProducts } from "../../api/api";
 import { productUpdate, productsUpdate } from "../../store/reducers/reducers";
 import {
@@ -17,12 +22,15 @@ function Products({ id }) {
   const location = useLocation().pathname;
   const products = useSelector(productsSelector);
   const search = useSelector(searchSelector);
+  const filterProducts = search
+    ? products.filter((product) => searchItem(product.title, search))
+    : products;
   const [loading, setLoading] = useState(true);
 
   const productDetail = (product) => {
     dispatch(productUpdate(product));
     localStorage.setItem("product", JSON.stringify(product));
-    navigate("/product");
+    navigate(`/product/${formatHttp(product.title)}_${product.id}`);
   };
 
   const getProducts = async () => {
@@ -46,11 +54,8 @@ function Products({ id }) {
         {loading ? (
           <Skeleton items={10} w="270px" h="270px" />
         ) : (
-          products.map((product) => (
-            <div
-              className={searchItem(product.title, search) ? S.item : S.hide}
-              key={product.id}
-            >
+          filterProducts.map((product) => (
+            <div className={S.item} key={product.id}>
               <div className={S.cards__card}>
                 {product.images[0] ? (
                   <img
@@ -67,12 +72,12 @@ function Products({ id }) {
                     onClick={() => productDetail(product)}
                     type="button"
                   >
-                    {product.title}
+                    {formatUppString(product.title)}
                   </button>
                   <p className={S.card__price}>{product.price} ₽</p>
                   <p className={S.card__place}>{product.user.city}</p>
                   <p className={S.card__date}>
-                    {normalizeDate(product.created_on)}
+                    {formatDate(product.created_on)}
                   </p>
                 </div>
               </div>

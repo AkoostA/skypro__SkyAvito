@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { commentData } from "../../helper/helper";
+import { formatCommentDate } from "../../helper/helper";
 import S from "./Reviews.module.css";
 
 function Reviews({ reviewsComments, setReviewsCheck }) {
@@ -42,7 +42,7 @@ function Reviews({ reviewsComments, setReviewsCheck }) {
                     <div className={S.review__right}>
                       <p className={S.review__name}>
                         {comment.author.name}{" "}
-                        <span>{commentData(comment.created_on)}</span>
+                        <span>{formatCommentDate(comment.created_on)}</span>
                       </p>
                       <h5 className={S.review__title}>Комментарий</h5>
                       <p className={S.review__text}>{comment.text}</p>

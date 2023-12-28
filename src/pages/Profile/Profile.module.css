@@ -44,10 +44,13 @@
     margin-right: 43px;
 }
 
-.settings__img {
+.settings__img, .settings__NoImg {
     width: 170px;
     height: 170px;
     border-radius: 50%;
+}
+
+.settings__NoImg {
     background-color: #F0F0F0;
 }
 
@@ -58,6 +61,7 @@
     font-size: 16px;
     line-height: 24px;
     color: #009EE4;
+    cursor: pointer;
 }
 
 .settings__right {
@@ -97,7 +101,7 @@
     width: 614px;
 }
 
-.settings__btn {
+.settings__btn, .settingsOff__btn {
     font-size: 16px;
     line-height: 1;
     color: #FFFFFF;
@@ -113,7 +117,19 @@
     background-color: #0080C1;
 }
 
+.settingsOff__btn {
+    background-color: #D9D9D9;
+    border: 1px solid #D9D9D9;
+}
+
 .main__title {
     font-size: 32px;
     line-height: 70px;
+}
+
+.error {
+    position: absolute;
+    top: 520px;
+    color: coral;
+    text-align: center;
 }

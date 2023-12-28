@@ -3,7 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCommentsProduct } from "../../api/api";
 import { productSelector } from "../../store/selectors/selectors";
-import { normalizeDate, sellsFromData } from "../../helper/helper";
+import {
+  formatUppString,
+  formatDate,
+  formatSellsDate,
+  formatHttp,
+  formatEmail,
+} from "../../helper/helper";
 import Header from "../../components/Header/Header";
 import Reviews from "../../components/Reviews/Reviews";
 import MainMenu from "../../components/MainMenu/MainMenu";
@@ -66,12 +72,14 @@ function Product() {
             </div>
             <div className={S.article__right}>
               <div className={S.article__block}>
-                <h3 className={S.article__title}>{product.title}</h3>
+                <h3 className={S.article__title}>
+                  {formatUppString(product.title)}
+                </h3>
                 <div className={S.article__info}>
                   <p className={S.article__date}>
-                    {normalizeDate(product.created_on)}
+                    {formatDate(product.created_on)}
                   </p>
-                  <p className={S.article__city}>{product.user?.city}</p>
+                  <p className={S.article__city}>{product.user.city}</p>
                   <button
                     className={S.article__btn}
                     onClick={() => setReviewsCheck(true)}
@@ -99,13 +107,21 @@ function Product() {
                   <div className={S.author__cont}>
                     <button
                       className={S.author__btn}
-                      onClick={() => navigate("/profile-seller")}
+                      onClick={() =>
+                        navigate(
+                          `/profile-seller/${formatHttp(
+                            formatEmail(product.user.email),
+                          )}_${product.user.id}`,
+                        )
+                      }
                       type="button"
                     >
                       {product.user.name}
                     </button>
                     <p className={S.author__about}>
-                      Продает товары с {sellsFromData(product.user.sells_from)}
+                      {`Продает товары с ${formatSellsDate(
+                        product.user.sells_from,
+                      )}`}
                     </p>
                   </div>
                 </div>

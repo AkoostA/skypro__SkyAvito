@@ -1,7 +1,12 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { safeString } from "../../helper/helper";
+import {
+  formatEmail,
+  formatHttp,
+  pressEnterKey,
+  safeTextInput,
+} from "../../helper/helper";
 import { getToken, getUser } from "../../api/api";
 import { tokenUpdate, userUpdate } from "../../store/reducers/reducers";
 import S from "./Login.module.css";
@@ -24,7 +29,7 @@ function Login() {
       setDisabled(true);
       checkInput();
       const respToken = await getToken({
-        login: safeString(login),
+        login,
         password,
       });
       const respUser = await getUser({ token: respToken.access_token });
@@ -32,16 +37,14 @@ function Login() {
       dispatch(userUpdate(respUser));
       localStorage.setItem("token", JSON.stringify(respToken));
       localStorage.setItem("user", JSON.stringify(respUser));
-      navigate("/profile");
+      navigate(
+        `/profile/${formatHttp(formatEmail(respUser.email))}_${respUser.id}`,
+      );
     } catch (error) {
       setError(error.message);
     } finally {
       setDisabled(false);
     }
-  };
-
-  const pressEnterKey = (event) => {
-    if (event.keyCode === 13) loginButton();
   };
 
   useEffect(() => {
@@ -56,8 +59,9 @@ function Login() {
           <input
             className={S.modal__input}
             value={login}
-            onChange={(event) => setLogin(event.target.value)}
-            onKeyDown={(event) => pressEnterKey(event)}
+            onChange={(event) => setLogin(safeTextInput(event))}
+            onKeyDown={(event) => pressEnterKey(event, loginButton, disabled)}
+            maxLength={20}
             type="text"
             name="login"
             placeholder="login"
@@ -66,7 +70,8 @@ function Login() {
             className={S.modal__input}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            onKeyDown={(event) => pressEnterKey(event)}
+            onKeyDown={(event) => pressEnterKey(event, loginButton, disabled)}
+            maxLength={20}
             type="password"
             name="password"
             placeholder="Пароль"

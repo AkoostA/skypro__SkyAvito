@@ -12,9 +12,9 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    dispatch(userUpdate(JSON.parse(localStorage.getItem("user"))));
-    dispatch(tokenUpdate(JSON.parse(localStorage.getItem("token"))));
-    dispatch(productUpdate(JSON.parse(localStorage.getItem("product"))));
+    dispatch(userUpdate(JSON.parse(localStorage.getItem("user")) || {}));
+    dispatch(tokenUpdate(JSON.parse(localStorage.getItem("token")) || {}));
+    dispatch(productUpdate(JSON.parse(localStorage.getItem("product")) || {}));
     setLoading(true);
   }, []);
 

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { sellsFromData } from "../../helper/helper";
+import { formatSellsDate } from "../../helper/helper";
 import { productSelector } from "../../store/selectors/selectors";
 import Header from "../../components/Header/Header";
 import MainMenu from "../../components/MainMenu/MainMenu";
@@ -36,7 +36,8 @@ function ProfileSeller() {
                     <h3 className={S.seller__title}>{product.user.name}</h3>
                     <p className={S.seller__city}>{product.user.city}</p>
                     <p className={S.seller__inf}>
-                      Продает товары с {sellsFromData(product.user.sells_from)}
+                      Продает товары с{" "}
+                      {formatSellsDate(product.user.sells_from)}
                     </p>
                     <PhoneButton
                       phone={

@@ -1,114 +1,148 @@
-export function parseMonth(monthNum) {
-  switch (monthNum) {
-    case 0: {
-      return "января";
-    }
-    case 1: {
-      return "февраля";
-    }
-    case 2: {
-      return "марта";
-    }
-    case 3: {
-      return "апреля";
-    }
-    case 4: {
-      return "мая";
-    }
-    case 5: {
-      return "июня";
-    }
-    case 6: {
-      return "июля";
-    }
-    case 7: {
-      return "августа";
-    }
-    case 8: {
-      return "сентября";
-    }
-    case 9: {
-      return "октября";
-    }
-    case 10: {
-      return "ноября";
-    }
-    case 11: {
-      return "декабря";
-    }
-    default:
-      return "";
-  }
+// Input - Валидация
+
+export function safeTextInput(event) {
+  return event.target.value.replace(/[^a-zA-Zа-яА-Я]/g, "");
 }
 
-export function parseData(value) {
-  const stringValue = value.toString();
-  let result;
-
-  if (stringValue.length === 1) {
-    result = `0${stringValue}`;
-  } else {
-    result = stringValue;
-  }
-
-  return result;
+export function safeTelInput(event) {
+  return event.target.value.replace(/[^0-9+]/g, "");
 }
 
-export function safeString(string) {
-  let validateString = string;
-  validateString = validateString
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-  return validateString;
+// Format - Замена данных
+
+export function formatLowString(string) {
+  if (string) return string.toLowerCase();
+  return "";
 }
 
-export function uppString(string) {
-  let validateString = string.toLowerCase();
-  validateString = string[0].toUpperCase() + validateString.slice(1);
-  return validateString;
+export function formatUppString(string) {
+  if (string) return string[0].toUpperCase() + string.toLowerCase().slice(1);
+  return "";
 }
 
-export function lowString(string) {
-  const validateString = string.toLowerCase();
-  return validateString;
+export function formatEmail(email) {
+  return email.slice(0, email.indexOf("@"));
 }
 
-export function validateInput(string) {
-  let validateString = string;
-  validateString = safeString(validateString);
-  validateString = uppString(validateString);
-  return validateString;
+export function formatSafeString(string) {
+  if (string)
+    return string
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;");
+  return "";
 }
 
-export function normalizeDate(time) {
+export function formatNumber(number) {
+  if (number.length === 1) return `0${number.toString()}`;
+  return number.toString();
+}
+
+export function formatMonth(month) {
+  if (month === 0 || month === "01") return "января";
+  if (month === 1 || month === "02") return "февраля";
+  if (month === 2 || month === "03") return "марта";
+  if (month === 3 || month === "04") return "апреля";
+  if (month === 4 || month === "05") return "мая";
+  if (month === 5 || month === "06") return "июня";
+  if (month === 6 || month === "07") return "июля";
+  if (month === 7 || month === "08") return "августа";
+  if (month === 8 || month === "09") return "сентября";
+  if (month === 9 || month === "10") return "октября";
+  if (month === 10 || month === "11") return "ноября";
+  if (month === 11 || month === "12") return "декабря";
+  return "";
+}
+
+export function formatDate(time) {
   const date = new Date(time);
-  const day = parseData(date.getDate());
-  const month = parseMonth(date.getMonth());
-  const hours = parseData(date.getHours());
-  const minutes = parseData(date.getMinutes());
+  const day = formatNumber(date.getDate());
+  const month = formatMonth(date.getMonth());
+  const hours = formatNumber(date.getHours());
+  const minutes = formatNumber(date.getMinutes());
 
   return `${day} ${month} в ${hours}:${minutes}`;
 }
 
-export function sellsFromData(date) {
-  const month = date?.slice(date.indexOf("-") + 1, date.lastIndexOf("-"));
-  const year = date?.slice(0, date.indexOf("-"));
+export function formatSellsDate(date) {
+  const month = formatMonth(
+    date.slice(date.indexOf("-") + 1, date.lastIndexOf("-")),
+  );
+  const year = date.slice(0, date.indexOf("-"));
 
-  return `${parseMonth(Number(month) - 1)} ${year}`;
+  return `${month} ${year}`;
 }
 
-export function commentData(date) {
-  const month = date?.slice(date.indexOf("-") + 1, date.lastIndexOf("-"));
-  const day = date?.slice(8, 10);
+export function formatCommentDate(date) {
+  const day = date.slice(8, 10);
+  const month = formatMonth(
+    date.slice(date.indexOf("-") + 1, date.lastIndexOf("-")),
+  );
 
-  return `${day} ${parseMonth(Number(month) - 1)}`;
+  return `${day} ${month}`;
 }
+
+export function formatHttp(word) {
+  const converter = {
+    а: "a",
+    б: "b",
+    в: "v",
+    г: "g",
+    д: "d",
+    е: "e",
+    ё: "e",
+    ж: "zh",
+    з: "z",
+    и: "i",
+    й: "y",
+    к: "k",
+    л: "l",
+    м: "m",
+    н: "n",
+    о: "o",
+    п: "p",
+    р: "r",
+    с: "s",
+    т: "t",
+    у: "u",
+    ф: "f",
+    х: "h",
+    ц: "c",
+    ч: "ch",
+    ш: "sh",
+    щ: "sch",
+    ь: "",
+    ы: "y",
+    ъ: "",
+    э: "e",
+    ю: "yu",
+    я: "ya",
+  };
+
+  let answer = "";
+
+  for (let i = 0; i < word.length; i += 1) {
+    if (converter[formatLowString(word[i])] === undefined) {
+      answer += formatLowString(word[i]);
+    } else {
+      answer += converter[formatLowString(word[i])];
+    }
+  }
+
+  answer = answer.replace(/[^-0-9a-z()]/g, "-");
+  return answer;
+}
+
+// Search
 
 export function searchItem(title, search) {
-  const titleLow = lowString(title);
-  const searchLow = lowString(search);
-  if (titleLow.search(searchLow) === -1) return false;
-  return true;
+  return formatLowString(title).includes(formatLowString(search));
+}
+
+// PressKey
+
+export function pressEnterKey(event, callback, disabled) {
+  if (disabled) return;
+  if (event.keyCode === 13) callback({ avatar: false });
 }
