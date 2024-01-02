@@ -13,6 +13,7 @@ import {
 import Header from "../../components/Header/Header";
 import Reviews from "../../components/Reviews/Reviews";
 import MainMenu from "../../components/MainMenu/MainMenu";
+import NewProduct from "../../components/NewProduct/NewProduct";
 import PhoneButton from "../../components/PhoneButton/PhoneButton";
 import S from "./Product.module.css";
 
@@ -20,6 +21,7 @@ function Product() {
   const navigate = useNavigate();
   const product = useSelector(productSelector);
   const [reviewsCheck, setReviewsCheck] = useState(false);
+  const [newProductCheck, setNewProductCheck] = useState(false);
   const [reviewsComments, setReviewsComments] = useState(false);
 
   const getComments = async () => {
@@ -33,14 +35,18 @@ function Product() {
 
   return (
     <div className={S.container}>
-      {reviewsCheck && <div className={S.cover} />}
+      <Header setNewProductCheck={setNewProductCheck} />
+      {(reviewsCheck && <div className={S.cover} />) ||
+        (newProductCheck && <div className={S.cover} />)}
       {reviewsCheck && (
         <Reviews
           reviewsComments={reviewsComments}
           setReviewsCheck={setReviewsCheck}
         />
       )}
-      <Header />
+      {newProductCheck && (
+        <NewProduct setNewProductCheck={setNewProductCheck} />
+      )}
       <main className={S.main}>
         <div className={S.main__container}>
           <MainMenu />

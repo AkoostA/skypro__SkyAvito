@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editUserAvatar, editUser } from "../../api/api";
@@ -10,9 +9,10 @@ import {
   pressEnterKey,
 } from "../../helper/helper";
 import { tokenSelector, userSelector } from "../../store/selectors/selectors";
-import Products from "../../components/Products/Products";
-import MainMenu from "../../components/MainMenu/MainMenu";
 import Header from "../../components/Header/Header";
+import MainMenu from "../../components/MainMenu/MainMenu";
+import Products from "../../components/Products/Products";
+import NewProduct from "../../components/NewProduct/NewProduct";
 import S from "./Profile.module.css";
 
 function Profile() {
@@ -26,6 +26,7 @@ function Profile() {
   const [disabled, setDisabled] = useState(false);
   const [loadingImg, setLoadingImg] = useState(false);
   const [errorLog, setError] = useState(null);
+  const [newProductCheck, setNewProductCheck] = useState(false);
 
   const editUserData = async ({ avatar }) => {
     try {
@@ -67,7 +68,11 @@ function Profile() {
 
   return (
     <div className={S.container}>
-      <Header />
+      <Header setNewProductCheck={setNewProductCheck} />
+      {newProductCheck && <div className={S.cover} />}
+      {newProductCheck && (
+        <NewProduct setNewProductCheck={setNewProductCheck} />
+      )}
       <main className={S.main}>
         <div className={S.main__container}>
           <div className={S.main__center}>
@@ -108,9 +113,9 @@ function Profile() {
                   <div className={S.settings__right}>
                     <form className={S.settings__form} action="#">
                       <div className={S.settings__div}>
-                        <label className={S.setting__label} htmlFor="name">
+                        <h3 className={S.setting__title} htmlFor="name">
                           Имя
-                        </label>
+                        </h3>
                         <input
                           className={S.settings__input}
                           value={name}
@@ -125,9 +130,9 @@ function Profile() {
                         />
                       </div>
                       <div className={S.settings__div}>
-                        <label className={S.setting__label} htmlFor="surname">
+                        <h3 className={S.setting__title} htmlFor="surname">
                           Фамилия
-                        </label>
+                        </h3>
                         <input
                           className={S.settings__input}
                           value={surname}
@@ -142,9 +147,9 @@ function Profile() {
                         />
                       </div>
                       <div className={S.settings__div}>
-                        <label className={S.setting__label} htmlFor="city">
+                        <h3 className={S.setting__title} htmlFor="city">
                           Город
-                        </label>
+                        </h3>
                         <input
                           className={S.settings__input}
                           value={city}
@@ -159,9 +164,9 @@ function Profile() {
                         />
                       </div>
                       <div className={S.settings__div}>
-                        <label className={S.setting__label} htmlFor="phone">
+                        <h3 className={S.setting__title} htmlFor="phone">
                           Телефон
-                        </label>
+                        </h3>
                         <input
                           className={S.settings__phone}
                           value={phone}

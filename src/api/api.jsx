@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 const PATH = "http://localhost:8090";
 
 export default PATH;
@@ -8,7 +9,7 @@ export async function getAllProducts() {
 }
 
 export async function getUsersProducts({ id }) {
-  const resp = await fetch(`${PATH}/ads?user_id=${id}`);
+  const resp = await fetch(`${PATH}/ads?user_id=${id}&sorting=new`);
   return resp.json();
 }
 
@@ -46,26 +47,6 @@ export async function getToken({ login, password }) {
   if (resp.status === 401)
     throw new Error("Введены не верный логин или пароль");
 
-  return resp.json();
-}
-
-export async function addRegister({ login, password, name, surname, city }) {
-  const resp = await fetch(`${PATH}/auth/register`, {
-    method: "POST",
-    body: JSON.stringify({
-      email: `${login}@gmail.com`,
-      password,
-      name,
-      surname,
-      city,
-    }),
-    headers: {
-      "content-type": "application/json",
-    },
-  });
-  if (resp.status === 422) throw new Error("Введены не допустимые символы");
-  if (resp.status === 400)
-    throw new Error("Пользователь с таким login уже зарегистрирован");
   return resp.json();
 }
 
@@ -165,4 +146,62 @@ export async function editUser({ name, surname, city, phone, token }) {
   if (city) user = await editCityUser({ city, token: newToken });
   if (phone) user = await editPhoneUser({ phone, token: newToken });
   return { user, newToken };
+}
+
+export async function addRegister({ login, password, name, surname, city }) {
+  const resp = await fetch(`${PATH}/auth/register`, {
+    method: "POST",
+    body: JSON.stringify({
+      email: `${login}@gmail.com`,
+      password,
+      name,
+      surname,
+      city,
+    }),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+  if (resp.status === 422) throw new Error("Введены не допустимые символы");
+  if (resp.status === 400)
+    throw new Error("Пользователь с таким login уже зарегистрирован");
+  return resp.json();
+}
+
+export async function addImgPublish({ id, photo, newToken }) {
+  const resp = await fetch(`${PATH}/ads/${id}/image`, {
+    method: "POST",
+    body: photo,
+    headers: {
+      Authorization: `Bearer ${newToken.access_token}`,
+    },
+  });
+  return resp.json();
+}
+
+export async function addPublish({ title, description, price, photos, token }) {
+  const newToken = await editToken({ token });
+  const noImgPublish = await fetch(`${PATH}/adstext`, {
+    method: "POST",
+    body: JSON.stringify({
+      title,
+      description,
+      price,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${newToken.access_token}`,
+    },
+  });
+  const noImgPublishJson = await noImgPublish.json();
+  let product;
+  for (let i = 0; i < photos.length; i += 1) {
+    product = await addImgPublish({
+      id: noImgPublishJson.id,
+      photo: photos[i],
+      newToken,
+    });
+  }
+
+  return { product, newToken };
 }

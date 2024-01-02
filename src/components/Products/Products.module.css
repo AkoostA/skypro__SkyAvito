@@ -5,6 +5,7 @@
     overflow-y: auto;
     justify-items: center;
     justify-content: center;
+    padding-bottom: 117px;
 }
 
 .card__img {

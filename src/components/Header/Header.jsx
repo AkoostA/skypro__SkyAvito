@@ -4,7 +4,7 @@ import { formatEmail, formatHttp } from "../../helper/helper";
 import { userSelector } from "../../store/selectors/selectors";
 import S from "./Header.module.css";
 
-function Header() {
+function Header({ setNewProductCheck }) {
   const location = useLocation().pathname;
   const user = useSelector(userSelector);
   const params = useParams();
@@ -26,7 +26,11 @@ function Header() {
         )}
         {location === `/product/${params.id}` && (
           <>
-            <button className={S.btn__put} type="button">
+            <button
+              className={S.btn__put}
+              onClick={() => setNewProductCheck(true)}
+              type="button"
+            >
               Разместить объявление
             </button>
             <button
@@ -40,7 +44,11 @@ function Header() {
         )}
         {location === `/profile-seller/${params.id}` && (
           <>
-            <button className={S.btn__put} type="button">
+            <button
+              className={S.btn__put}
+              onClick={() => setNewProductCheck(true)}
+              type="button"
+            >
               Разместить объявление
             </button>
             <button
@@ -53,7 +61,11 @@ function Header() {
           </>
         )}
         {location === `/profile/${params.id}` && (
-          <button className={S.btn__put} type="button">
+          <button
+            className={S.btn__put}
+            onClick={() => setNewProductCheck(true)}
+            type="button"
+          >
             Разместить объявление
           </button>
         )}

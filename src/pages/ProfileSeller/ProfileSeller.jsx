@@ -1,18 +1,25 @@
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import { formatSellsDate } from "../../helper/helper";
 import { productSelector } from "../../store/selectors/selectors";
 import Header from "../../components/Header/Header";
 import MainMenu from "../../components/MainMenu/MainMenu";
 import Products from "../../components/Products/Products";
+import NewProduct from "../../components/NewProduct/NewProduct";
 import PhoneButton from "../../components/PhoneButton/PhoneButton";
 import S from "./ProfileSeller.module.css";
 
 function ProfileSeller() {
   const product = useSelector(productSelector);
+  const [newProductCheck, setNewProductCheck] = useState(false);
 
   return (
     <div className={S.container}>
-      <Header />
+      <Header setNewProductCheck={setNewProductCheck} />
+      {newProductCheck && <div className={S.cover} />}
+      {newProductCheck && (
+        <NewProduct setNewProductCheck={setNewProductCheck} />
+      )}
       <main className={S.main}>
         <div className={S.main__container}>
           <div className={S.main__center}>

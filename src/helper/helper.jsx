@@ -8,6 +8,10 @@ export function safeTelInput(event) {
   return event.target.value.replace(/[^0-9+]/g, "");
 }
 
+export function safePriseInput(event) {
+  return event.target.value.replace(/[^0-9]/g, "");
+}
+
 // Format - Замена данных
 
 export function formatLowString(string) {
@@ -24,9 +28,9 @@ export function formatEmail(email) {
   return email.slice(0, email.indexOf("@"));
 }
 
-export function formatSafeString(string) {
-  if (string)
-    return string
+export function formatSafeString(event) {
+  if (event.target.value)
+    return event.target.value
       .replaceAll("&", "&amp;")
       .replaceAll("<", "&lt;")
       .replaceAll(">", "&gt;")
