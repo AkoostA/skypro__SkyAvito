@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-await-in-loop */
 const PATH = "http://localhost:8090";
 
@@ -148,6 +149,74 @@ export async function editUser({ name, surname, city, phone, token }) {
   return { user, newToken };
 }
 
+export async function editImgPublish({
+  product,
+  id,
+  photo,
+  newToken,
+  copyPhoto,
+}) {
+  if (photo !== copyPhoto && copyPhoto.id) {
+    let resp;
+    resp = await fetch(`${PATH}/ads/${id}/image/?file_url=${copyPhoto.url}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${newToken.access_token}`,
+      },
+    });
+    resp = await addImgPublish({ id, photo, newToken });
+    return resp;
+  }
+  if (copyPhoto.catch) {
+    const resp = await addImgPublish({ id, photo, newToken });
+    return resp;
+  }
+  return product;
+}
+
+export async function editPublish({
+  title,
+  description,
+  price,
+  token,
+  photos,
+  copyPhotos,
+  product,
+}) {
+  const newToken = await editToken({ token });
+  const editNoImgPublish = await fetch(`${PATH}/ads/${product.id}`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      title,
+      description,
+      price,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${newToken.access_token}`,
+    },
+  });
+  let newProduct;
+  for (let i = 0; i < photos.length; i += 1) {
+    const respEditImg = await editImgPublish({
+      product,
+      id: product.id,
+      photo: photos[i],
+      newToken,
+      copyPhoto: copyPhotos[i]
+        ? copyPhotos[i]
+        : {
+            catch: "catch",
+          },
+    });
+    if (respEditImg.images[i].id !== product.images[i].id)
+      newProduct = respEditImg;
+    if (!photos[i + 1]) photos.splice(i + 1);
+  }
+
+  return { newProduct, newToken, editNoImgPublish };
+}
+
 export async function addRegister({ login, password, name, surname, city }) {
   const resp = await fetch(`${PATH}/auth/register`, {
     method: "POST",
@@ -204,4 +273,15 @@ export async function addPublish({ title, description, price, photos, token }) {
   }
 
   return { product, newToken };
+}
+
+export async function delPublish({ id, token }) {
+  const newToken = await editToken({ token });
+  const del = await fetch(`${PATH}/ads/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${newToken.access_token}`,
+    },
+  });
+  return { del, newToken };
 }

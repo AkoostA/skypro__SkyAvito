@@ -1,0 +1,19 @@
+.redactor__form {
+    display: flex;
+    gap: 10px;
+}
+
+.redactor__btn {
+    background-color: #009EE4;
+    border: 1px solid #009EE4;
+    border-radius: 6px;
+    width: 214px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #FFFFFF;
+}
+
+.redactor__btn:hover {
+    background-color: #0080C1;
+}

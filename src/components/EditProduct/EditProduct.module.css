@@ -1,0 +1,166 @@
+.containerNewProduct {
+    position: relative;
+    z-index: 100;
+}
+
+.modal__block {
+    position: absolute;
+    left: calc(50% - (800px/2));
+    top: 60px;
+}
+
+.modal__content {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    padding: 20px 92px 57px 50px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+}
+
+.modal__title {
+    font-size: 32px;
+    line-height: 46px;
+}
+
+.btn__cross {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 30px;
+    right: 35px;
+    background: transparent;
+    background-image: url(../../../public/img/cross.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.modal__form {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form__block, .form__price {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.block__title {
+    margin-bottom: 4px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.block__title span {
+    margin-left: 10px;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.form__textInput, .form__textArea, .form__inputPrice {
+    padding: 13px 19px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.form__textArea {
+    font-family: 'Roboto', sans-serif;
+    max-height: 200px;
+    resize: none
+}
+
+.form__inputPrice {
+    width: 200px;
+}
+
+.form__barImg {
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.form__newImg {
+    width: 90px;
+    height: 90px;
+    margin-right: 10px;
+    position: relative;
+    z-index: 0;
+}
+
+.formPhoto {
+    height: 90px;
+    width: 90px;
+}
+
+.form__imgCover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #F0F0F0;
+    z-index: -1;
+    cursor: pointer;
+}
+
+.form__imgCover::before, .form__imgCover::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #D9D9D9;
+    top: 50%;
+    right: calc(50% - (30px/2));
+    z-index: -1;
+}
+
+.form__imgCover::before {
+    transform: rotate(90deg);
+    z-index: -1;
+}
+
+.form__price {
+    position: relative;
+}
+
+.form__priceCover {
+    position: absolute;
+    bottom: 13px;
+    left: 170px;
+}
+
+.form__priceCover::after {
+    content: "\A0 \20BD";
+    line-height: 24px;
+}
+
+.form__btn {
+    margin-top: 10px;
+    width: 181px;
+    height: 50px;
+    background-color: #009EE4;
+    border: 1px solid #D9D9D9;
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.form__btn:hover {
+    background-color: #0080C1;
+}
+
+.error {
+    position: absolute;
+    top: 710px;
+    left: 300px;
+    color: coral;
+    text-align: center;
+}

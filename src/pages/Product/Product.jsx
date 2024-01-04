@@ -2,7 +2,11 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCommentsProduct } from "../../api/api";
-import { productSelector } from "../../store/selectors/selectors";
+import {
+  productSelector,
+  tokenSelector,
+  userSelector,
+} from "../../store/selectors/selectors";
 import {
   formatUppString,
   formatDate,
@@ -14,12 +18,17 @@ import Header from "../../components/Header/Header";
 import Reviews from "../../components/Reviews/Reviews";
 import MainMenu from "../../components/MainMenu/MainMenu";
 import NewProduct from "../../components/NewProduct/NewProduct";
+import EditProduct from "../../components/EditProduct/EditProduct";
 import PhoneButton from "../../components/PhoneButton/PhoneButton";
+import RedactorButton from "../../components/RedactorButton/RedactorButton";
 import S from "./Product.module.css";
 
 function Product() {
   const navigate = useNavigate();
+  const user = useSelector(userSelector);
+  const token = useSelector(tokenSelector);
   const product = useSelector(productSelector);
+  const [editCheck, setEditCheck] = useState(false);
   const [reviewsCheck, setReviewsCheck] = useState(false);
   const [newProductCheck, setNewProductCheck] = useState(false);
   const [reviewsComments, setReviewsComments] = useState(false);
@@ -37,7 +46,8 @@ function Product() {
     <div className={S.container}>
       <Header setNewProductCheck={setNewProductCheck} />
       {(reviewsCheck && <div className={S.cover} />) ||
-        (newProductCheck && <div className={S.cover} />)}
+        (newProductCheck && <div className={S.cover} />) ||
+        (editCheck && <div className={S.cover} />)}
       {reviewsCheck && (
         <Reviews
           reviewsComments={reviewsComments}
@@ -46,6 +56,9 @@ function Product() {
       )}
       {newProductCheck && (
         <NewProduct setNewProductCheck={setNewProductCheck} />
+      )}
+      {editCheck && (
+        <EditProduct token={token} product={product} setEditCheck={setEditCheck} />
       )}
       <main className={S.main}>
         <div className={S.main__container}>
@@ -95,11 +108,19 @@ function Product() {
                   </button>
                 </div>
                 <p className={S.article__price}>{product.price} ₽</p>
-                <PhoneButton
-                  phone={
-                    product.user.phone ? product.user.phone : "000 000 00 00"
-                  }
-                />
+                {user.id === product.user_id ? (
+                  <RedactorButton
+                    token={token}
+                    id={product.id}
+                    setEditCheck={setEditCheck}
+                  />
+                ) : (
+                  <PhoneButton
+                    phone={
+                      product.user.phone ? product.user.phone : "000 000 00 00"
+                    }
+                  />
+                )}
                 <div className={S.article__author}>
                   {product.user.avatar ? (
                     <img

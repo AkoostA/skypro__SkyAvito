@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { addRegister } from "../../api/api";
+import { addRegister, getToken } from "../../api/api";
 import {
   formatEmail,
   formatHttp,
   pressEnterKey,
   safeTextInput,
 } from "../../helper/helper";
-import { userUpdate } from "../../store/reducers/reducers";
+import { tokenUpdate, userUpdate } from "../../store/reducers/reducers";
 import S from "./Register.module.css";
 
 function Register() {
@@ -45,8 +45,14 @@ function Register() {
         surname,
         city,
       });
+      const respToken = await getToken({
+        login,
+        password,
+      });
       dispatch(userUpdate(respRegister));
+      dispatch(tokenUpdate(respToken));
       localStorage.setItem("user", JSON.stringify(respRegister));
+      localStorage.setItem("token", JSON.stringify(respToken));
       navigate(
         `/profile/${formatHttp(formatEmail(respRegister.email))}_${
           respRegister.id
