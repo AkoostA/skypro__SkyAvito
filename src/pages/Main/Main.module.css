@@ -1,0 +1,14 @@
+.container {
+    background-color: #FFFFFF;
+}
+
+.main__container {
+    padding: 85px 10px 84px;
+}
+
+.main__title {
+    padding-left: 140px;
+    font-size: 40px;
+    line-height: 42px;
+    margin-bottom: 30px;
+}

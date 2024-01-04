@@ -1,0 +1,40 @@
+.main__menu {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 31px 10px 64px;
+}
+
+.menu__logo {
+    width: 55px;
+    height: 38px;
+    background-image: url(../../../public/img/logo.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.menu__form {
+    margin-left: 60px;
+    max-width: 1044px;
+    width: 100%;
+}
+
+.menu__btn, .exit__btn {
+    width: 241px;
+    height: 50px;
+    background-color: #009EE4;
+    border: 1px solid #009EE4;
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 1;
+    color: #FFFFFF;
+}
+
+.exit__btn {
+    margin-left: 10px;
+}
+
+.menu__btn:hover, .exit__btn:hover {
+    background-color: #0080C1;
+}
