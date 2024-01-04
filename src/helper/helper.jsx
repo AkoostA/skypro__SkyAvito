@@ -59,6 +59,24 @@ export function formatMonth(month) {
   return "";
 }
 
+export function formatComment(numb) {
+  if (numb === undefined) return "";
+  if (numb > 10 && numb < 20) return "Комментариев";
+  const string = numb.toString().split("").pop();
+  if (string === "1") return "Комментарий";
+  if (string === "2" || string === "3" || string === "4") return "Комментария";
+  if (
+    string === "5" ||
+    string === "6" ||
+    string === "7" ||
+    string === "8" ||
+    string === "9" ||
+    string === "0"
+  )
+    return "Комментариев";
+  return "";
+}
+
 export function formatDate(time) {
   const date = new Date(time);
   const day = formatNumber(date.getDate());
