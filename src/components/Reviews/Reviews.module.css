@@ -19,6 +19,7 @@
     background-color: #FFFFFF;
     border-radius: 12px;
     position: relative;
+    margin-bottom: 117px;
 }
 
 .modal__title {
@@ -83,12 +84,16 @@
 .newArt__btn {
     width: 181px;
     height: 50px;
-    background: #D9D9D9;
-    border: 1px solid #D9D9D9;
+    background-color: #009EE4;
+    border: 1px solid #009EE4;
     border-radius: 6px;
     font-size: 16px;
     line-height: 24px;
     color: #FFFFFF;
+}
+
+.newArt__btn:hover {
+    background-color: #0080C1;
 }
 
 .reviews__review {
@@ -109,10 +114,13 @@
     margin-right: 12px;
 }
 
-.review__img {
+.review__img, .review__noImg {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+
+.review__noImg {
     background-color: #F0F0F0;
 }
 
@@ -138,4 +146,12 @@
 
 .review__text {
     line-height: 32px;
+}
+
+.error {
+    position: absolute;
+    top: 260px;
+    left: 320px;
+    color: coral;
+    text-align: center;
 }

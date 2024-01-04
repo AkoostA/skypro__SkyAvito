@@ -167,7 +167,7 @@ export async function editImgPublish({
     resp = await addImgPublish({ id, photo, newToken });
     return resp;
   }
-  if (copyPhoto.catch) {
+  if (copyPhoto.crutch) {
     const resp = await addImgPublish({ id, photo, newToken });
     return resp;
   }
@@ -206,7 +206,7 @@ export async function editPublish({
       copyPhoto: copyPhotos[i]
         ? copyPhotos[i]
         : {
-            catch: "catch",
+            crutch: "crutch",
           },
     });
     if (respEditImg.images[i].id !== product.images[i].id)
@@ -273,6 +273,21 @@ export async function addPublish({ title, description, price, photos, token }) {
   }
 
   return { product, newToken };
+}
+
+export async function addComment({ id, text, token }) {
+  const newToken = await editToken({ token });
+  const newComment = await fetch(`${PATH}/ads/${id}/comments`, {
+    method: "POST",
+    body: JSON.stringify({
+      text,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${newToken.access_token}`,
+    },
+  });
+  return {newComment, newToken}
 }
 
 export async function delPublish({ id, token }) {

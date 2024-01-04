@@ -31,10 +31,10 @@ export function formatEmail(email) {
 export function formatSafeString(event) {
   if (event.target.value)
     return event.target.value
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;");
+      .replace("&", "")
+      .replace("<", "")
+      .replace(">", "")
+      .replace('"', "");
   return "";
 }
 

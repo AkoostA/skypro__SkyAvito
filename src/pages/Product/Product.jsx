@@ -50,6 +50,10 @@ function Product() {
         (editCheck && <div className={S.cover} />)}
       {reviewsCheck && (
         <Reviews
+          user={user}
+          token={token}
+          product={product}
+          getComments={getComments}
           reviewsComments={reviewsComments}
           setReviewsCheck={setReviewsCheck}
         />
@@ -58,7 +62,11 @@ function Product() {
         <NewProduct setNewProductCheck={setNewProductCheck} />
       )}
       {editCheck && (
-        <EditProduct token={token} product={product} setEditCheck={setEditCheck} />
+        <EditProduct
+          token={token}
+          product={product}
+          setEditCheck={setEditCheck}
+        />
       )}
       <main className={S.main}>
         <div className={S.main__container}>

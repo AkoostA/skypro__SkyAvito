@@ -68,7 +68,10 @@ function EditProduct({ token, product, setEditCheck }) {
       dispatch(tokenUpdate(respEditPublish.newToken));
       dispatch(productUpdate(respEditPublish.newProduct));
       localStorage.setItem("token", JSON.stringify(respEditPublish.newToken));
-      localStorage.setItem("product", JSON.stringify(respEditPublish.newProduct));
+      localStorage.setItem(
+        "product",
+        JSON.stringify(respEditPublish.newProduct),
+      );
       setEditCheck(false);
     } catch (error) {
       setError(error.message);
@@ -165,7 +168,7 @@ function EditProduct({ token, product, setEditCheck }) {
               </h3>
               <div className={S.form__barImg}>
                 {urlPhotos.map((urlPhoto, i) => (
-                  <div className={S.form__newImg} key={urlPhoto.id ? urlPhoto.id : i}>
+                  <div className={S.form__newImg}>
                     <label className={S.form__imgCover} htmlFor={`img_${i}`}>
                       {null}
                       <input
