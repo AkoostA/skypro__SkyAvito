@@ -13,6 +13,7 @@ import {
   formatSellsDate,
   formatHttp,
   formatEmail,
+  formatComment,
 } from "../../helper/helper";
 import Header from "../../components/Header/Header";
 import Reviews from "../../components/Reviews/Reviews";
@@ -112,7 +113,7 @@ function Product() {
                     onClick={() => setReviewsCheck(true)}
                     type="button"
                   >
-                    {reviewsComments.length}
+                    {reviewsComments.length} {formatComment(reviewsComments.length)}
                   </button>
                 </div>
                 <p className={S.article__price}>{product.price} ₽</p>
