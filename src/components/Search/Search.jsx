@@ -17,9 +17,6 @@ function Search() {
           name="search"
           placeholder="Поиск по объявлениям"
         />
-        <button className={S.search__btn} type="button">
-          Найти
-        </button>
       </form>
     </div>
   );
