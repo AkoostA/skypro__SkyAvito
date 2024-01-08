@@ -52,49 +52,47 @@ function Login() {
   }, [login, password]);
 
   return (
-    <div className={S.container__enter}>
-      <div className={S.modal__block}>
-        <form className={S.modal__form} action="#">
-          <Link to="/" className={S.modal__logo} />
-          <input
-            className={S.modal__input}
-            value={login}
-            onChange={(event) => setLogin(safeTextInput(event))}
-            onKeyDown={(event) => pressEnterKey(event, loginButton, disabled)}
-            maxLength={20}
-            type="text"
-            name="login"
-            placeholder="login"
-          />
-          <input
-            className={S.modal__input}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            onKeyDown={(event) => pressEnterKey(event, loginButton, disabled)}
-            maxLength={20}
-            type="password"
-            name="password"
-            placeholder="Пароль"
-          />
-          {errorLog && <span className={S.error}>{errorLog}</span>}
-          <button
-            className={S.btn__enter}
-            onClick={loginButton}
-            disabled={disabled}
-            type="button"
-          >
-            {disabled ? "...Входим" : "Войти"}
-          </button>
-          <button
-            className={S.btn__register}
-            onClick={() => navigate("/register")}
-            disabled={disabled}
-            type="button"
-          >
-            Зарегистрироваться
-          </button>
-        </form>
-      </div>
+    <div className={S.modal__block}>
+      <form className={S.modal__form} action="#">
+        <Link to="/" className={S.modal__logo} />
+        <input
+          className={S.modal__input}
+          value={login}
+          onChange={(event) => setLogin(safeTextInput(event))}
+          onKeyDown={(event) => pressEnterKey(event, loginButton, disabled)}
+          maxLength={20}
+          type="text"
+          name="login"
+          placeholder="login"
+        />
+        <input
+          className={S.modal__input}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          onKeyDown={(event) => pressEnterKey(event, loginButton, disabled)}
+          maxLength={20}
+          type="password"
+          name="password"
+          placeholder="Пароль"
+        />
+        {errorLog && <span className={S.error}>{errorLog}</span>}
+        <button
+          className={S.btn__enter}
+          onClick={loginButton}
+          disabled={disabled}
+          type="button"
+        >
+          {disabled ? "...Входим" : "Войти"}
+        </button>
+        <button
+          className={S.btn__register}
+          onClick={() => navigate("/register")}
+          disabled={disabled}
+          type="button"
+        >
+          Зарегистрироваться
+        </button>
+      </form>
     </div>
   );
 }

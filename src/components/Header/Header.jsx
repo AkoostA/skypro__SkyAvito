@@ -1,14 +1,16 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { formatEmail, formatHttp } from "../../helper/helper";
 import { userSelector } from "../../store/selectors/selectors";
 import S from "./Header.module.css";
+import { addProductUpdate } from "../../store/reducers/reducers";
 
-function Header({ setNewProductCheck }) {
+function Header() {
   const location = useLocation().pathname;
   const user = useSelector(userSelector);
   const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toProfile = () => {
     if (!user.id) navigate("/login");
@@ -28,7 +30,7 @@ function Header({ setNewProductCheck }) {
           <>
             <button
               className={S.btn__put}
-              onClick={() => setNewProductCheck(true)}
+              onClick={() => dispatch(addProductUpdate(true))}
               type="button"
             >
               Разместить объявление
@@ -46,7 +48,7 @@ function Header({ setNewProductCheck }) {
           <>
             <button
               className={S.btn__put}
-              onClick={() => setNewProductCheck(true)}
+              onClick={() => dispatch(addProductUpdate(true))}
               type="button"
             >
               Разместить объявление
@@ -63,7 +65,7 @@ function Header({ setNewProductCheck }) {
         {location === `/profile/${params.id}` && (
           <button
             className={S.btn__put}
-            onClick={() => setNewProductCheck(true)}
+            onClick={() => dispatch(addProductUpdate(true))}
             type="button"
           >
             Разместить объявление

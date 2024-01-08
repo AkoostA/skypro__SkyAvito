@@ -52,7 +52,7 @@ function Products({ id }) {
     <div className={S.main__content}>
       <div className={S.content__cards}>
         {loading ? (
-          <Skeleton items={10} w="270px" h="270px" />
+          <Skeleton items={10} />
         ) : (
           filterProducts.map((product) => (
             <div className={S.item} key={product.id}>

@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
 import { formatSellsDate } from "../../helper/helper";
-import { productSelector } from "../../store/selectors/selectors";
+import {
+  addProductSelector,
+  productSelector,
+} from "../../store/selectors/selectors";
 import Header from "../../components/Header/Header";
 import MainMenu from "../../components/MainMenu/MainMenu";
 import Products from "../../components/Products/Products";
@@ -11,15 +13,13 @@ import S from "./ProfileSeller.module.css";
 
 function ProfileSeller() {
   const product = useSelector(productSelector);
-  const [newProductCheck, setNewProductCheck] = useState(false);
+  const addProductCheck = useSelector(addProductSelector);
 
   return (
     <div className={S.container}>
-      <Header setNewProductCheck={setNewProductCheck} />
-      {newProductCheck && <div className={S.cover} />}
-      {newProductCheck && (
-        <NewProduct setNewProductCheck={setNewProductCheck} />
-      )}
+      <Header />
+      {addProductCheck && <div className={S.cover} />}
+      {addProductCheck && <NewProduct />}
       <main className={S.main}>
         <div className={S.main__container}>
           <div className={S.main__center}>
@@ -57,7 +57,7 @@ function ProfileSeller() {
                 </div>
               </div>
             </div>
-            <h3 className={S.main__title}>Мои товары</h3>
+            <h3 className={S.main__title}>Товары продавца</h3>
           </div>
           <Products id={product.user.id} />
         </div>

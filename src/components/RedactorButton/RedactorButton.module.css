@@ -17,3 +17,13 @@
 .redactor__btn:hover {
     background-color: #0080C1;
 }
+
+@media (max-width: 768px) {
+    .redactor__form {
+        flex-direction: column;
+    }
+
+    .redactor__btn {
+        width: 100%;
+    }
+}

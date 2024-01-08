@@ -6,6 +6,8 @@ import {
   userUpdate,
 } from "../store/reducers/reducers";
 import AppRoutes from "./AppRoutes/AppRoutes";
+import MobileHeader from "./MobileHeader/MobileHeader";
+import MobileFooter from "./MobileFooter/MobileFooter";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,7 +20,13 @@ function App() {
     setLoading(true);
   }, []);
 
-  return loading && <AppRoutes />;
+  return (
+    <>
+      {loading && <MobileHeader />}
+      {loading && <AppRoutes />}
+      {loading && <MobileFooter />}
+    </>
+  );
 }
 
 export default App;

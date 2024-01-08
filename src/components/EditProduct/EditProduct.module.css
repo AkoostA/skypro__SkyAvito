@@ -157,10 +157,81 @@
     background-color: #0080C1;
 }
 
+.mobile__title {
+    display: none;
+}
+
 .error {
     position: absolute;
     top: 710px;
     left: 300px;
     color: coral;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    .modal__block {
+        left: calc(50% - (320px/2));
+        top: 0;
+    }
+
+    .modal__content {
+        width: 320px;
+        padding: 20px;
+        border-radius: unset;
+    }
+
+    .modal__title {
+        font-size: 20px;
+        line-height: 28px;
+        margin-left: 65px;
+    }
+
+    .title {
+        display: none;
+    }
+
+    .mobile__title {
+        display: block;
+    }
+
+    .btn__cross {
+        top: 15px;
+        right: 20px;
+    }
+
+    .form__textInput, .form__textArea, .form__inputPrice {
+        border-radius: 30px;
+    }
+
+    .form__inputPrice {
+        width: 100%;
+    }
+
+    .block__title {
+        display: flex;
+        margin-left: 20px;
+        flex-direction: column;
+    }
+
+    .block__title span {
+        margin-left: 0;
+    }
+
+    .form__hideImgCover {
+        display: none;
+    }
+
+    .form__btn {
+        width: 100%;
+    }
+
+    .form__priceCover {
+        left: 240px;
+    }
+
+    .error {
+        top: 675px;
+        left: 50px;
+    }
 }

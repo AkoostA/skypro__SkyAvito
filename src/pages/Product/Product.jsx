@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCommentsProduct } from "../../api/api";
 import {
+  addProductSelector,
   productSelector,
   tokenSelector,
   userSelector,
@@ -15,6 +16,7 @@ import {
   formatEmail,
   formatComment,
 } from "../../helper/helper";
+import Slider from "../../components/Slider/Slider";
 import Header from "../../components/Header/Header";
 import Reviews from "../../components/Reviews/Reviews";
 import MainMenu from "../../components/MainMenu/MainMenu";
@@ -29,9 +31,9 @@ function Product() {
   const user = useSelector(userSelector);
   const token = useSelector(tokenSelector);
   const product = useSelector(productSelector);
+  const addProductCheck = useSelector(addProductSelector);
   const [editCheck, setEditCheck] = useState(false);
   const [reviewsCheck, setReviewsCheck] = useState(false);
-  const [newProductCheck, setNewProductCheck] = useState(false);
   const [reviewsComments, setReviewsComments] = useState(false);
 
   const getComments = async () => {
@@ -45,9 +47,9 @@ function Product() {
 
   return (
     <div className={S.container}>
-      <Header setNewProductCheck={setNewProductCheck} />
+      <Header />
       {(reviewsCheck && <div className={S.cover} />) ||
-        (newProductCheck && <div className={S.cover} />) ||
+        (addProductCheck && <div className={S.cover} />) ||
         (editCheck && <div className={S.cover} />)}
       {reviewsCheck && (
         <Reviews
@@ -59,9 +61,7 @@ function Product() {
           setReviewsCheck={setReviewsCheck}
         />
       )}
-      {newProductCheck && (
-        <NewProduct setNewProductCheck={setNewProductCheck} />
-      )}
+      {addProductCheck && <NewProduct />}
       {editCheck && (
         <EditProduct
           token={token}
@@ -76,6 +76,7 @@ function Product() {
         <div className={S.main__article}>
           <div className={S.article__content}>
             <div className={S.article__left}>
+              <Slider images={product.images} />
               <div className={S.article__imgBox}>
                 {product.images[0] ? (
                   <img
@@ -113,7 +114,8 @@ function Product() {
                     onClick={() => setReviewsCheck(true)}
                     type="button"
                   >
-                    {reviewsComments.length} {formatComment(reviewsComments.length)}
+                    {reviewsComments.length}{" "}
+                    {formatComment(reviewsComments.length)}
                   </button>
                 </div>
                 <p className={S.article__price}>{product.price} ₽</p>

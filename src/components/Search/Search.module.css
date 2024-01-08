@@ -50,3 +50,9 @@
 .search__btn:hover {
     background-color: #0080C1;
 }
+
+@media (max-width: 768px) {
+    .main__search {
+        display: none;
+    }
+}

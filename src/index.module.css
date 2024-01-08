@@ -39,3 +39,10 @@ ul li {
   font-display: swap;
   width: 400;
 }
+
+@media (max-width: 768px) {
+  :root {
+    padding-left: calc(50% - 200px);
+    padding-right: calc(50% - 200px);
+  }
+}
