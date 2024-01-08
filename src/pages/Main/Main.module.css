@@ -3,7 +3,7 @@
 }
 
 .main__container {
-    padding: 85px 10px 84px;
+    padding: 80px 10px;
 }
 
 .main__title {
@@ -11,4 +11,17 @@
     font-size: 40px;
     line-height: 42px;
     margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .main__container {
+        padding: 40px 10px;
+
+    }
+
+    .main__title {
+        padding-left: 10px;
+        font-size: 24px;
+        line-height: 29px;
+    }
 }

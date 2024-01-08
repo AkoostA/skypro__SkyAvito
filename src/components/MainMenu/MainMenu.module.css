@@ -38,3 +38,29 @@
 .menu__btn:hover, .exit__btn:hover {
     background-color: #0080C1;
 }
+
+@media (max-width: 768px) {
+    .main__menu {
+        position: absolute;
+        padding: 0;
+        top: 855px;
+        width: 320px;
+    }
+
+    .menu__logo {
+        display: none;
+    }
+
+    .menu__form {
+        margin-left: 0;
+    }
+
+    .menu__btn {
+        display: none;
+    }
+
+    .exit__btn {
+        margin: 0;
+        width: 320px;
+    }
+}

@@ -8,11 +8,15 @@ import {
   safePriseInput,
 } from "../../helper/helper";
 import { addPublish } from "../../api/api";
-import { productUpdate, tokenUpdate } from "../../store/reducers/reducers";
+import {
+  addProductUpdate,
+  productUpdate,
+  tokenUpdate,
+} from "../../store/reducers/reducers";
 import { tokenSelector } from "../../store/selectors/selectors";
 import S from "./NewProduct.module.css";
 
-function NewProduct({ setNewProductCheck }) {
+function NewProduct() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -54,7 +58,7 @@ function NewProduct({ setNewProductCheck }) {
       dispatch(tokenUpdate(newPublish.newToken));
       localStorage.setItem("product", JSON.stringify(newPublish.product));
       localStorage.setItem("token", JSON.stringify(newPublish.newToken));
-      setNewProductCheck(false);
+      dispatch(addProductUpdate(false));
       navigate(
         `/product/${formatHttp(newPublish.product.title)}_${
           newPublish.product.id
@@ -78,7 +82,7 @@ function NewProduct({ setNewProductCheck }) {
           <h3 className={S.modal__title}>Новое объявление</h3>
           <button
             className={S.btn__cross}
-            onClick={() => setNewProductCheck(false)}
+            onClick={() => dispatch(addProductUpdate(false))}
             type="button"
           >
             {null}
@@ -187,7 +191,7 @@ function NewProduct({ setNewProductCheck }) {
                       alt=""
                     />
                   )}
-                  <label className={S.form__imgCover} htmlFor="img_uploads">
+                  <label className={S.form__hideImgCover} htmlFor="img_uploads">
                     {null}
                     <input
                       onChange={(e) =>
@@ -209,7 +213,7 @@ function NewProduct({ setNewProductCheck }) {
                       alt=""
                     />
                   )}
-                  <label className={S.form__imgCover} htmlFor="img_uploads">
+                  <label className={S.form__hideImgCover} htmlFor="img_uploads">
                     {null}
                     <input
                       onChange={(e) =>

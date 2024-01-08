@@ -127,7 +127,10 @@ function EditProduct({ token, product, setEditCheck }) {
     <div className={S.containerNewProduct}>
       <div className={S.modal__block}>
         <div className={S.modal__content}>
-          <h3 className={S.modal__title}>Редактировать объявление</h3>
+          <h3 className={S.modal__title}>
+            <span className={S.title}>Редактировать объявление</span>
+            <span className={S.mobile__title}>Редактировать</span>
+          </h3>
           <button
             className={S.btn__cross}
             onClick={() => setEditCheck(false)}
@@ -169,7 +172,12 @@ function EditProduct({ token, product, setEditCheck }) {
               <div className={S.form__barImg}>
                 {urlPhotos.map((urlPhoto, i) => (
                   <div className={S.form__newImg}>
-                    <label className={S.form__imgCover} htmlFor={`img_${i}`}>
+                    <label
+                      className={`${S.form__imgCover} ${
+                        i > 2 ? S.form__hideImgCover : ""
+                      }`}
+                      htmlFor={`img_${i}`}
+                    >
                       {null}
                       <input
                         onChange={(event) =>

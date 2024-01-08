@@ -7,6 +7,7 @@ const initialState = {
   search: "",
   product: {},
   products: [],
+  addProduct: false,
 };
 
 const reducers = createSlice({
@@ -28,6 +29,9 @@ const reducers = createSlice({
     productsUpdate: (state, actions) => {
       state.products = actions.payload;
     },
+    addProductUpdate: (state, actions) => {
+      state.addProduct = actions.payload;
+    },
   },
 });
 
@@ -37,5 +41,6 @@ export const {
   searchUpdate,
   productUpdate,
   productsUpdate,
+  addProductUpdate,
 } = reducers.actions;
 export default reducers;

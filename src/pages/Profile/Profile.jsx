@@ -8,7 +8,11 @@ import {
   formatUppString,
   pressEnterKey,
 } from "../../helper/helper";
-import { tokenSelector, userSelector } from "../../store/selectors/selectors";
+import {
+  addProductSelector,
+  tokenSelector,
+  userSelector,
+} from "../../store/selectors/selectors";
 import Header from "../../components/Header/Header";
 import MainMenu from "../../components/MainMenu/MainMenu";
 import Products from "../../components/Products/Products";
@@ -19,6 +23,7 @@ function Profile() {
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
   const token = useSelector(tokenSelector);
+  const addProductCheck = useSelector(addProductSelector);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [city, setCity] = useState("");
@@ -26,7 +31,6 @@ function Profile() {
   const [disabled, setDisabled] = useState(false);
   const [loadingImg, setLoadingImg] = useState(false);
   const [errorLog, setError] = useState(null);
-  const [newProductCheck, setNewProductCheck] = useState(false);
 
   const editUserData = async ({ avatar }) => {
     try {
@@ -68,11 +72,9 @@ function Profile() {
 
   return (
     <div className={S.container}>
-      <Header setNewProductCheck={setNewProductCheck} />
-      {newProductCheck && <div className={S.cover} />}
-      {newProductCheck && (
-        <NewProduct setNewProductCheck={setNewProductCheck} />
-      )}
+      <Header />
+      {addProductCheck && <div className={S.cover} />}
+      {addProductCheck && <NewProduct />}
       <main className={S.main}>
         <div className={S.main__container}>
           <div className={S.main__center}>

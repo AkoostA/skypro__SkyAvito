@@ -73,7 +73,7 @@ function Reviews({
                       onChange={(event) => setText(formatSafeString(event))}
                       name="text"
                       rows="5"
-                      placeholder="Введите описание"
+                      placeholder="Ваш отзыв"
                     />
                   </div>
                   <button

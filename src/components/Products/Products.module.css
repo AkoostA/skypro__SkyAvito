@@ -3,14 +3,15 @@
     grid-template-columns: repeat(auto-fit, minmax(270px, 270px));
     grid-gap: 40px 26px;
     overflow-y: auto;
-    justify-items: center;
     justify-content: center;
     padding-bottom: 117px;
+    padding-top: 50px;
 }
 
 .card__img {
     height: 270px;
     width: 270px;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.75);
 }
 
 .noImg {
@@ -20,6 +21,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.75);
 }
 
 .card__btn {
@@ -44,4 +46,22 @@
 .card__place, .card__date {
     line-height: 21px;
     color: #5F5F5F;
+}
+
+@media (max-width: 768px) {
+    .content__cards {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 140px));
+        padding-bottom: 20px;
+        padding-top: 0;
+    }
+
+    .card__img {
+        height: 140px;
+        width: 140px;
+    }
+
+    .noImg {
+        height: 140px;
+        width: 140px;
+    }
 }

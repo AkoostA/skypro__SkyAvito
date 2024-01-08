@@ -1,0 +1,12 @@
+.skeleton {
+    width: 270px;
+    height: 270px;
+    background: #F0F0F0;
+}
+
+@media (max-width: 768px) {
+    .skeleton {
+        width: 140px;
+        height: 140px;
+    }
+}
