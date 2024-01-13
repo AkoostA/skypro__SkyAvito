@@ -209,9 +209,15 @@ export async function editPublish({
             crutch: "crutch",
           },
     });
-    if (respEditImg.images[i].id !== product.images[i].id)
+    if (respEditImg.images.length > product.images.length)
       newProduct = respEditImg;
     if (!photos[i + 1]) photos.splice(i + 1);
+    if (!newProduct) {
+      newProduct = await fetch(`${PATH}/ads/${product.id}`, {
+        method: "GET",
+      });
+      newProduct = await newProduct.json();
+    }
   }
 
   return { newProduct, newToken, editNoImgPublish };
@@ -287,7 +293,7 @@ export async function addComment({ id, text, token }) {
       Authorization: `Bearer ${newToken.access_token}`,
     },
   });
-  return {newComment, newToken}
+  return { newComment, newToken };
 }
 
 export async function delPublish({ id, token }) {

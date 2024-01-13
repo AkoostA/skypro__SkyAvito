@@ -7,7 +7,7 @@ import {
   pressEnterKey,
   safePriseInput,
 } from "../../helper/helper";
-import { addPublish, editPublish } from "../../api/api";
+import { editPublish } from "../../api/api";
 import { productUpdate, tokenUpdate } from "../../store/reducers/reducers";
 import S from "./EditProduct.module.css";
 
@@ -73,32 +73,9 @@ function EditProduct({ token, product, setEditCheck }) {
         JSON.stringify(respEditPublish.newProduct),
       );
       setEditCheck(false);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setDisabled(false);
-    }
-  };
-
-  const publish = async () => {
-    try {
-      setDisabled(true);
-      checkInput();
-      const newPublish = await addPublish({
-        title,
-        description,
-        price,
-        photos,
-        token,
-      });
-      dispatch(productUpdate(newPublish.product));
-      dispatch(tokenUpdate(newPublish.newToken));
-      localStorage.setItem("product", JSON.stringify(newPublish.product));
-      localStorage.setItem("token", JSON.stringify(newPublish.newToken));
-      setEditCheck(false);
       navigate(
-        `/product/${formatHttp(newPublish.product.title)}_${
-          newPublish.product.id
+        `/product/${formatHttp(respEditPublish.newProduct.title)}_${
+          product.id
         }`,
       );
     } catch (error) {
@@ -145,7 +122,9 @@ function EditProduct({ token, product, setEditCheck }) {
                 className={S.form__textInput}
                 value={title}
                 onChange={(event) => setTitle(formatSafeString(event))}
-                onKeyDown={(event) => pressEnterKey(event, publish, disabled)}
+                onKeyDown={(event) =>
+                  pressEnterKey(event, editProduct, disabled)
+                }
                 maxLength={65}
                 type="text"
                 name="name"
@@ -158,7 +137,6 @@ function EditProduct({ token, product, setEditCheck }) {
                 className={S.form__textArea}
                 value={description}
                 onChange={(event) => setDescription(formatSafeString(event))}
-                onKeyDown={(event) => pressEnterKey(event, publish, disabled)}
                 name="text"
                 cols="auto"
                 rows="10"
@@ -171,7 +149,10 @@ function EditProduct({ token, product, setEditCheck }) {
               </h3>
               <div className={S.form__barImg}>
                 {urlPhotos.map((urlPhoto, i) => (
-                  <div className={S.form__newImg}>
+                  <div
+                    className={S.form__newImg}
+                    key={urlPhoto?.id ? urlPhoto.id : i}
+                  >
                     <label
                       className={`${S.form__imgCover} ${
                         i > 2 ? S.form__hideImgCover : ""
@@ -214,7 +195,9 @@ function EditProduct({ token, product, setEditCheck }) {
                 maxLength={10}
                 value={price}
                 onChange={(event) => setPrice(safePriseInput(event))}
-                onKeyDown={(event) => pressEnterKey(event, publish, disabled)}
+                onKeyDown={(event) =>
+                  pressEnterKey(event, editProduct, disabled)
+                }
                 type="text"
                 name="price"
               />

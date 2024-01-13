@@ -19,6 +19,7 @@ function MobileFooter() {
   };
 
   const newProduct = () => {
+    if (!user.id) return navigate("/login");
     if (
       location === `/profile/${params.id}` ||
       location === `/product/${params.id}` ||
@@ -29,6 +30,7 @@ function MobileFooter() {
       dispatch(addProductUpdate(true));
       navigate(`/profile/${formatHttp(formatEmail(user.email))}_${user.id}`);
     }
+    return "";
   };
 
   return (

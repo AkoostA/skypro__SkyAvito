@@ -1,6 +1,10 @@
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { tokenUpdate, userUpdate } from "../../store/reducers/reducers";
+import {
+  productUpdate,
+  tokenUpdate,
+  userUpdate,
+} from "../../store/reducers/reducers";
 import S from "./MainMenu.module.css";
 
 function MainMenu() {
@@ -12,8 +16,8 @@ function MainMenu() {
   const exit = () => {
     dispatch(userUpdate({}));
     dispatch(tokenUpdate({}));
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    dispatch(productUpdate({}));
+    localStorage.clear();
     navigate("/");
   };
 
